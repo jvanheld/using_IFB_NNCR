@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Jacques van Helden" />
+  <meta name="date" content="2018-10-09" />
+  <title>Environnements logiciels</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <script src="environnements_de_travail_files/jquery-1.11.3/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="environnements_de_travail_files/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+  <script src="environnements_de_travail_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+  <script src="environnements_de_travail_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+  <script src="environnements_de_travail_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+  <link href="environnements_de_travail_files/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="environnements_de_travail_files/slidy-2/scripts/slidy.js"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Environnements logiciels</h1>
+  <h1 class="subtitle">Using IFB NNCR</h1>
+  <p class="author">
+Jacques van Helden
+  </p>
+  <p class="date">2018-10-09</p>
+</div>
+<div id="outils-en-ligne-de-commandes-pourquoi" class="slide section level2">
+<h2>Outils en ligne de commandes : pourquoi ?</h2>
+<ul>
+<li><p>Un grand nombre d’outils bioinformatiques ne sont pas munis d’interfaces interactives</p></li>
+<li><p>Automatisation des tâches</p>
+<ul>
+<li>Gestion de processus complexes avec de nombreuses tâches</li>
+<li>Gestion de processus répétitifs: même tâche appliquée à de nombreux fichiers de données</li>
+</ul></li>
+<li><p>High performance computing (HPC)</p>
+<ul>
+<li>utilisation de très grosses ressources de calcul et stockage</li>
+</ul></li>
+<li><p>Traçabilité et reproducibilité des analyses</p>
+<ul>
+<li>scripts</li>
+<li>workflows</li>
+</ul></li>
+</ul>
+</div>
+<div id="environnements-de-travail" class="slide section level2">
+<h2>Environnements de travail</h2>
+<p>La plupart des outils bioinformatiques peuvent être compilés pour les systèmes opérateurs de type Unix (Linux, Mac OS X), et ne tournent pas sous Windows.</p>
+<p>Différents environnements de travail peuvent être utilisés pour utiliser ces outils.</p>
+<ul>
+<li>Terminal de votre propre ordinateur (Linux, Mac OS X)</li>
+<li>Machine Virtuelle (<a href="https://www.virtualbox.org/">VirtualBox</a>, <a href="https://www.vmware.com/">VWMare</a>)</li>
+<li>Conteneurs logiciels (<a href="https://www.docker.com/">Docker</a>, <a href="https://www.sylabs.io/singularity/">singularity</a>)</li>
+<li>Terminal d’une machine distante (par connexion ssh)</li>
+<li>Bureau Virtuel</li>
+</ul>
+</div>
+<div id="machine-virtuelle" class="slide section level2">
+<h2>Machine virtuelle</h2>
+<ul>
+<li><p>Composantes</p>
+<ul>
+<li>machine hôte: votre PC</li>
+<li>système opérateur de l’hôte (Linux, Mac, Windows)</li>
+<li>hyperviseur: logiciel qui permet de créer et faire tourner les machines virtuelles sur l’hôte</li>
+<li>machine virtuelle: émulation d’un autre ordinateur, qui tourne sur la machine hôte</li>
+<li>système opérateur de la machine virtuelle: Linux, Windows, …</li>
+</ul></li>
+<li><p>Applications typiques</p>
+<ul>
+<li>faire tourner un système Linux sur un PC Windows ou Mac</li>
+<li>tester un logiciel sous différents systèmes opérateurs</li>
+<li>isoler un service du système hôte (sécurité, segmentation des ressources)</li>
+</ul></li>
+<li><p>Exemples de superviseurs</p>
+<ul>
+<li>VirtualBox (<a href="https://www.virtualbox.org/" class="uri">https://www.virtualbox.org/</a>)</li>
+<li>VWMare (<a href="https://www.vmware.com/" class="uri">https://www.vmware.com/</a>)</li>
+</ul></li>
+</ul>
+</div>
+<div id="virtualisation-basee-sur-des-conteneurs" class="slide section level2">
+<h2>Virtualisation basée sur des conteneurs</h2>
+<ul>
+<li><p>Exécution d’applications sur un système opérateur partagé sans recours à une machine virtuelle</p></li>
+<li><p>Intérêt</p>
+<ul>
+<li>combinaison d’applications et de librairies “à la carte”</li>
+<li>usage plus restreint des ressources de la machine hôte</li>
+</ul></li>
+<li><p>Logiciels de gestion de conteneurs</p>
+<ul>
+<li>Docker (<a href="https://www.docker.com/" class="uri">https://www.docker.com/</a>)</li>
+<li>singularity (<a href="https://www.sylabs.io/singularity/" class="uri">https://www.sylabs.io/singularity/</a>)</li>
+</ul></li>
+</ul>
+</div>
+<div id="machines-virtuelles-versus-containers" class="slide section level2">
+<h2>Machines virtuelles versus containers</h2>
+<div class="figure" style="text-align: center">
+<img src="images/vm_vs_container.png" alt="**Comparaison de solutions de virtualisation.** Droite: machine virtuelle; centre: container Docker; droite: container Singularity . Source: Greg Kurtzer keynote at HPC Advisory Council 2017 @ Stanford" width="90%" />
+<p class="caption">
+<strong>Comparaison de solutions de virtualisation.</strong> Droite: machine virtuelle; centre: container Docker; droite: container Singularity . Source: Greg Kurtzer keynote at HPC Advisory Council 2017 @ Stanford
+</p>
+</div>
+</div>
+<div id="installation-dapplications-dans-le-systeme-operateur-local" class="slide section level2">
+<h2>Installation d’applications dans le système opérateur local</h2>
+<ul>
+<li><p>Avantages</p>
+<ul>
+<li>Disponibilité des applications</li>
+<li>Efficacité de l’exécution directe</li>
+</ul></li>
+<li><p>Désavantages</p>
+<ul>
+<li>Dépendances (librairies système, librairies de langage, autres applications)</li>
+<li>Incompatibilités entre dépendances de différentes applications</li>
+<li>Certains logiciels et librairies requièrent une intervention de l’administrateur système</li>
+<li>Diversité des <a href="https://fr.wikipedia.org/wiki/Gestionnaire_de_paquets">gestionnaires de paquets</a> (<a href="https://en.wikipedia.org/wiki/Package_manager">package managers</a>) selon les systèmes opérateurs (apt-get, yum, ports, brew, …).</li>
+<li>Certaines applications et librairies ne sont disponibles que pour certains gestionnaires de paquets</li>
+</ul></li>
+</ul>
+</div>
+<div id="conda" class="slide section level2">
+<h2>Conda</h2>
+<ul>
+<li><p>Doc : <a href="https://conda.io/docs/" class="uri">https://conda.io/docs/</a></p></li>
+<li><p>Avantages</p>
+<ul>
+<li>Un gestionnaire de paquets multi-plateforme</li>
+<li>Toutes les installations se font au niveau de l’utilisateur</li>
+<li>Nombre croissant de logiciels et librairies portés sous conda</li>
+<li>Effort maintenu par une large communauté d’informaticiens</li>
+<li>Gestion extrêmement précise des dépendances (version pour chaque élément)</li>
+<li>Désinstallation aisée des logiciels qui ne sont plus nécessaires</li>
+<li>L’essayer c’est l’adopter !</li>
+</ul></li>
+<li><p>Désavantages</p>
+<ul>
+<li>Si chaque utilisateur installe chaque outil et ses dépendances dans son propre compte, redondance et utilisation inutile d’espace disque</li>
+</ul></li>
+</ul>
+</div>
+<div id="cluster" class="slide section level2">
+<h2>Cluster</h2>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

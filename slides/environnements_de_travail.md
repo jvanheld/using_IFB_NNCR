@@ -1,9 +1,10 @@
 ---
-title: "IFB NNCR"
+title: "Environnements logiciels"
 author: "Jacques van Helden"
-date: '`r Sys.Date()`'
+date: '2018-10-09'
 output:
   slidy_presentation:
+    self_contained: false
     fig_caption: yes
     fig_height: 6
     fig_width: 7
@@ -27,6 +28,7 @@ output:
     theme: Montpellier
     toc: yes
   html_document:
+    self_contained: false
     fig_caption: yes
     highlight: zenburn
     theme: cerulean
@@ -39,6 +41,7 @@ output:
     toc: yes
     toc_depth: 3
   ioslides_presentation:
+    self_contained: false
     css: slides.css
     fig_caption: yes
     fig_height: 6
@@ -50,29 +53,13 @@ output:
   word_document:
     toc: yes
     toc_depth: 3
-#font-import: http://fonts.googleapis.com/css?family=Risque
-subtitle: Panorama des méthodes et outils bioinformatiques - compléments
+# font-import: http://fonts.googleapis.com/css?family=Risque
+subtitle: Using IFB NNCR
 font-family: Garamond
 transition: linear
 ---
 
-```{r include=FALSE, echo=FALSE, eval=TRUE}
-library(knitr)
 
-options(width = 300)
-knitr::opts_chunk$set(
-  fig.width = 7, fig.height = 5, 
-  fig.align = "center", 
-  fig.path = "figures/sampling-estimation_",
-  size = "tiny", 
-  echo = FALSE, eval = TRUE, 
-  warning = FALSE, message = FALSE, 
-  results = TRUE, comment = "")
-# knitr::asis_output("\\footnotesize")
-
-dir.slides <- "~/bioinfo1/practicals/blast_proteomes"
-setwd(dir.slides)
-```
 
 ## Outils en ligne de commandes : pourquoi ?
 
@@ -94,10 +81,15 @@ setwd(dir.slides)
 
 ## Environnements de travail 
 
+La plupart des outils bioinformatiques peuvent être compilés pour les systèmes opérateurs de type Unix (Linux, Mac OS X), et ne tournent pas sous Windows. 
+
+Différents environnements de travail peuvent être utilisés pour utiliser ces outils. 
+
 - Terminal de votre propre ordinateur (Linux, Mac OS X)
 - Machine Virtuelle ([VirtualBox](https://www.virtualbox.org/), [VWMare](https://www.vmware.com/))
 - Conteneurs logiciels ([Docker](https://www.docker.com/), [singularity](https://www.sylabs.io/singularity/))
-
+- Terminal d'une machine distante (par connexion ssh)
+- Bureau Virtuel
 
 ## Machine virtuelle
 
@@ -139,9 +131,10 @@ setwd(dir.slides)
 ## Machines virtuelles versus containers
 
 
-```{r out.width="90%", fig.cap="**Comparaison de solutions de virtualisation.** Droite: machine virtuelle; centre: container Docker; droite: container Singularity . Source: Greg Kurtzer keynote at HPC Advisory Council 2017 @ Stanford"}
-include_graphics("images/vm_vs_container.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/vm_vs_container.png" alt="**Comparaison de solutions de virtualisation.** Droite: machine virtuelle; centre: container Docker; droite: container Singularity . Source: Greg Kurtzer keynote at HPC Advisory Council 2017 @ Stanford" width="90%" />
+<p class="caption">**Comparaison de solutions de virtualisation.** Droite: machine virtuelle; centre: container Docker; droite: container Singularity . Source: Greg Kurtzer keynote at HPC Advisory Council 2017 @ Stanford</p>
+</div>
 
 
 ## Installation d'applications dans le système opérateur local
@@ -176,6 +169,9 @@ include_graphics("images/vm_vs_container.png")
 - Désavantages
 
     - Si  chaque utilisateur installe chaque outil et ses dépendances dans son propre compte, redondance et utilisation inutile d'espace disque
+
+## Cluster
+
 
 
 
