@@ -55,11 +55,47 @@ To open a connection to the IFB NNCR, follow the totirla  [Tutorial](../NNCR-clu
 
 # Tutorial
 
-## Downloading protein sequences and gene annotations from Ensembl genome
+## Browsing genomes with EnsemblGenomes
 
 As reference genome, we will use the strain *K12 MG1655* of  *Escherichia coli*. 
 
-1. In a web browser, open a connexion to Ensembl Bacteria (<https://bacteria.ensembl.org>)
+1. In a web browser, open a connexion to Ensembl Bacteria (<https://bacteria.ensembl.org>).
+
+2. In the  **Search for a genome** box, type *MG1655*. The interface will display a list of the genomes matching this string. Select the strain with taxonomic ID (TAXID) *511145*.
+
+```{r out.width="60%", fig.cap="**EnsemblGenomes Bacteria organism choice**. ", echo=FALSE}
+include_graphics("images/ensembl_bacteria_organism_selection.png")
+```
+3. After having selected your bacteria of interest, type *aspartokinase* in the search box and start the search. 
+
+```{r out.width="60%", fig.cap="**EnsemblGenomes gene search**. ", echo=FALSE}
+include_graphics("images/ensembl_bacteria_search_aspartokinase.png")
+```
+
+
+4. Read the annotation of the three first matches. Note the names of the genes coding for these three enzymes. 
+
+```{r out.width="60%", fig.cap="**EnsemblGenomes search result for *aspartokinase***. ", echo=FALSE}
+include_graphics("images/Ecoli_aspartokinase_search_result.png")
+```
+
+## Exercise
+
+We will use blast on the command line to search for homologs of *E.coli*  aspartokinases in other bacterial genomes.
+
+Each student will chose a different bacteria to perform the search. 
+
+## Downloading protein sequences and gene annotations from Ensembl genome
+
+1. In a separate window, open a connection to [EnsemblGenomes Bacteria](https://bacteria.ensembl.org/) (<https://bacteria.ensembl.org/>).
+
+2. Click on the **Downloads* link (you can also access it directly here: <https://bacteria.ensembl.org/info/website/ftp/>). 
+
+3. In the **filter** box, type MG1655. This select the subset of genomes whose name contains this string. 
+
+```{r out.width="60%", fig.cap="**EnsemblGenomes download filter**. ", echo=FALSE}
+include_graphics("images/ensemblgenomes_bacteria_ftp_mg1655.png")
+```
 
 
 ## Activating the conda environment for blast on the NNCR cluster

@@ -282,12 +282,56 @@ div.tocify {
 </div>
 <div id="tutorial" class="section level1">
 <h1>Tutorial</h1>
-<div id="downloading-protein-sequences-and-gene-annotations-from-ensembl-genome" class="section level2">
-<h2>Downloading protein sequences and gene annotations from Ensembl genome</h2>
+<div id="browsing-genomes-with-ensemblgenomes" class="section level2">
+<h2>Browsing genomes with EnsemblGenomes</h2>
 <p>As reference genome, we will use the strain <em>K12 MG1655</em> of <em>Escherichia coli</em>.</p>
 <ol style="list-style-type: decimal">
-<li>In a web browser, open a connexion to Ensembl Bacteria (<a href="https://bacteria.ensembl.org" class="uri">https://bacteria.ensembl.org</a>)</li>
+<li><p>In a web browser, open a connexion to Ensembl Bacteria (<a href="https://bacteria.ensembl.org" class="uri">https://bacteria.ensembl.org</a>).</p></li>
+<li><p>In the <strong>Search for a genome</strong> box, type <em>MG1655</em>. The interface will display a list of the genomes matching this string. Select the strain with taxonomic ID (TAXID) <em>511145</em>.</p></li>
 </ol>
+<div class="figure" style="text-align: center">
+<img src="images/ensembl_bacteria_organism_selection.png" alt="**EnsemblGenomes Bacteria organism choice**. " width="60%" />
+<p class="caption">
+<strong>EnsemblGenomes Bacteria organism choice</strong>.
+</p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>After having selected your bacteria of interest, type <em>aspartokinase</em> in the search box and start the search.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/ensembl_bacteria_search_aspartokinase.png" alt="**EnsemblGenomes gene search**. " width="60%" />
+<p class="caption">
+<strong>EnsemblGenomes gene search</strong>.
+</p>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Read the annotation of the three first matches. Note the names of the genes coding for these three enzymes.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/Ecoli_aspartokinase_search_result.png" alt="**EnsemblGenomes search result for *aspartokinase***. " width="60%" />
+<p class="caption">
+<strong>EnsemblGenomes search result for <em>aspartokinase</em></strong>.
+</p>
+</div>
+</div>
+<div id="exercise" class="section level2">
+<h2>Exercise</h2>
+<p>We will use blast on the command line to search for homologs of <em>E.coli</em> aspartokinases in other bacterial genomes.</p>
+<p>Each student will chose a different bacteria to perform the search.</p>
+</div>
+<div id="downloading-protein-sequences-and-gene-annotations-from-ensembl-genome" class="section level2">
+<h2>Downloading protein sequences and gene annotations from Ensembl genome</h2>
+<ol style="list-style-type: decimal">
+<li><p>In a separate window, open a connection to <a href="https://bacteria.ensembl.org/">EnsemblGenomes Bacteria</a> (<a href="https://bacteria.ensembl.org/" class="uri">https://bacteria.ensembl.org/</a>).</p></li>
+<li><p>Click on the **Downloads* link (you can also access it directly here: <a href="https://bacteria.ensembl.org/info/website/ftp/" class="uri">https://bacteria.ensembl.org/info/website/ftp/</a>).</p></li>
+<li><p>In the <strong>filter</strong> box, type MG1655. This select the subset of genomes whose name contains this string.</p></li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/ensemblgenomes_bacteria_ftp_mg1655.png" alt="**EnsemblGenomes download filter**. " width="60%" />
+<p class="caption">
+<strong>EnsemblGenomes download filter</strong>.
+</p>
+</div>
 </div>
 <div id="activating-the-conda-environment-for-blast-on-the-nncr-cluster" class="section level2">
 <h2>Activating the conda environment for blast on the NNCR cluster</h2>
