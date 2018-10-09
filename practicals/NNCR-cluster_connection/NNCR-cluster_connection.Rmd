@@ -1,0 +1,141 @@
+---
+title: "Command-line use of bioinformatics tools"
+author: "Jacques van Helden"
+date: 'Created: 8/10/2018; last update: `r Sys.Date()`'
+output:
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 2
+  md_document:
+    variant: markdown_github
+  html_document:
+    self_contained: false
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  word_document:
+    toc: yes
+    toc_depth: 2
+#bibliography: ./geneset_functional_analysis.bib
+---
+
+
+```{r setup, include=FALSE}
+library(knitr, warn.conflicts = FALSE)
+knitr::opts_chunk$set(echo = FALSE, results = TRUE, message = FALSE, fig.align = "center")
+
+dir.main <- "~/IFB/NNCR/using_IFB_NNCR/"
+dir.tp <- file.path(dir.main, "practicals", "")
+setwd(dir.tp)
+
+```
+
+****************************************************************
+# Instructions  pour les étudiants AMU
+
+- Le TP qui suit est rédigé en anglais, pour vous familiariser avec la langue utilisée sur l'ensemble des ressources bioinformatiques internationales. 
+
+- Ce tutoriel repose sur l'utilsation du réseau national de ressources informatiques (**National Network of Computing Resources**, **NNCR**) de l'**Institut Français de Bioinformatique** (**IFB**). 
+
+- Pour ces premiers travaux pratiques, nous utiliserons le serveur prototype du NNCR (***Proof of concept***, ***POC***), qui est actuellement en phase de test. Vous avez l'honneur d'être les premiers utilisateurs de ces machines. Si vous rencontrez des difficultés, n'hésitez donc pas à me les signaler. 
+
+- En début de TP je communiqueral à chaque étudiant un login qui lui permettra d'accéder à ces ressources jusqu'à la fin de la session de janvier. 
+
+
+****************************************************************
+# Resources
+
+|  Name | URL  |
+|----------------|-------------------------------------------------------|
+| IFB |  <http://france-bioinformatique.fr/> <br>Site Web de l'Institut Français de bioinformatique |
+| Anaconda | <https://anaconda.org/> |
+| Doc NNCR | <http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/> |
+
+****************************************************************
+# Goal of this practical
+
+The goal of this practical is to learn using bioinformatics tools on the Unix command line. 
+
+****************************************************************
+# Introduction
+
+****************************************************************
+# Tutorial
+
+
+## Opening a connection to the IFB cluster
+
+In a Unix terminal, open an ssh connection to the IFB cluster.
+
+```{bash eval=FALSE}
+ssh [yourlogin]@hpc.poc-nncr-ifb.fr
+```
+
+***Attention!*** You are now connected to the login machine of the cluster. The this  should *never* be used to perform computation: its only function is to give you access to the computing nodes. 
+
+## Running an interactive session on a cluster node
+
+<font color="red">
+
+- definition of the key concepts of cluster: node, CPU, ...
+- job schedulers, slurm 
+- interactive session
+
+</font>
+
+```{bash eval=FALSE}
+sinteractive
+```
+
+```{bash eval=FALSE}
+hostname
+```
+
+
+
+## Checking your environment
+
+```{bash eval=FALSE}
+## Get your login
+whoami
+
+## Print the path to your home directory
+echo $HOME
+
+### What is your shell ?
+echo $SHELL
+
+## Get your path
+echo $PATH
+
+## Print all your environment variables
+printenv
+```
+
+## Downloading protein sequences
+
+For this tutorial, each student will select a bacterial genome of interest. 
+
+## Installing your tools with conda
+
+[conda](https://conda.io/docs/) 
+
+****************************************************************
+# Exercises
+
+
+
+****************************************************************
+# References
+
+
+
+
+
+
+
