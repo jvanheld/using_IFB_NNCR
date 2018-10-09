@@ -80,7 +80,7 @@ include_graphics("images/ensembl_bacteria_search_aspartokinase.png")
 include_graphics("images/Ecoli_aspartokinase_search_result.png")
 ```
 
-## Exercise
+## Downloading genomic features and protein sequences
 
 We will use blast on the command line to search for homologs of *E.coli*  aspartokinases in other bacterial genomes.
 
@@ -175,6 +175,10 @@ We ask you to write all the answers in a text file, with comments, in order to e
 
 3. How many of these rows correspond to genes ? 
 
+4. Count the number of instnces of each feature type in the GTF file. 
+
+5. Select all the rows of the GTF file corresponding to a gene, and store them in a separate file named `genes_Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf`. 
+
 ```{bash eval=FALSE, echo=FALSE}
 ## Solution
 wget --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf.gz
@@ -190,11 +194,26 @@ grep -v '^#' Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf | wc -l
 
 ## How many of these rows correspond to genes ? 
 grep -v '^#' Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf \
-  | awk -F '\t' '$3 == "gene"' | wc -l
+  | cut -f 3 | grep '^gene$' | wc -l
+
+## Count the number of instnces of each feature type in the GTF file. 
+grep -v '^#' Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf \
+  | cut -f 3 | sort | uniq -c | sort -n -r -k 1
+
+## Select all the rows of the GTF file corresponding to a gene, and store them in a separate file named
+grep -v '^#' Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf \
+  | awk -F '\t' '$3 == "gene"' \
+  > genes_Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf
+
+## Check the number of rows selected by awk
+wc -l genes_Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf
+
+
 
 ```
 
 
+# Running blast for all proteins of a genome
 
 
 ## Activating the conda environment for blast on the NNCR cluster
