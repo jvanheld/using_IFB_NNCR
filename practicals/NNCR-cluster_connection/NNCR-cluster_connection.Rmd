@@ -27,7 +27,11 @@ output:
 
 ```{r setup, include=FALSE}
 library(knitr, warn.conflicts = FALSE)
-knitr::opts_chunk$set(echo = FALSE, results = TRUE, message = FALSE, fig.align = "center")
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  results = TRUE, 
+  message = FALSE,
+  fig.align = "center")
 
 dir.main <- "~/IFB/NNCR/using_IFB_NNCR/"
 dir.tp <- file.path(dir.main, "practicals", "")
@@ -76,7 +80,23 @@ In a Unix terminal, open an ssh connection to the IFB cluster.
 ssh [yourlogin]@hpc.poc-nncr-ifb.fr
 ```
 
-***Attention!*** You are now connected to the login machine of the cluster. The this  should *never* be used to perform computation: its only function is to give you access to the computing nodes. 
+Check the host name
+
+```{bash eval=FALSE}
+hostname
+```
+
+This should display the following result:
+
+
+```
+slurm-client.ifb.local
+```
+
+
+
+
+***Attention!*** You are now connected to the login machine of the cluster, whose only function is to give you access to the computing nodes. <font color="red">**This machine  should never be used to perform computation**</font>. Indeed, running tasks on this machine would be very inefficient for you (there is a single CPU) and perturbate the connections of other users. 
 
 ## Running an interactive session on a cluster node
 
@@ -128,7 +148,14 @@ For this tutorial, each student will select a bacterial genome of interest.
 ****************************************************************
 # Exercises
 
+# Matériel supplémentaire
 
+## Documentation du NNCR
+
+- [Utiliser conda sur le NNCR IFB](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html)
+- [Utiliser slurm sur le NNCR IFB](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/slurm_user_guide.html)
+
+- [Sessions interactives avec slurm](https://it.igbmc.fr/doku.php?id=en:documentation:calcul-scientifique:sinteractive)
 
 ****************************************************************
 # References

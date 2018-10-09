@@ -170,7 +170,25 @@ Différents environnements de travail peuvent être utilisés pour utiliser ces 
 
     - Si  chaque utilisateur installe chaque outil et ses dépendances dans son propre compte, redondance et utilisation inutile d'espace disque
 
-## Cluster
+## Grappe de serveurs (computer cluster)
+
+Une grappe de calcul est un ensemble d'ordinateurs (appelés ***noeuds**) qui peuvent être utilisés ensemble pour paralléliser des tâches. 
+
+<div class="figure" style="text-align: center">
+<img src="images/600px-IBM_Blue_Gene_P_supercomputer.jpg" alt="**Grappe de serveurs.** En avant-plan: *Homo sapiens* tentant d'établir une interaction physique avec les machines.  Source: &lt;https://en.wikipedia.org/wiki/Parallel_computing&gt;" width="60%" />
+<p class="caption">**Grappe de serveurs.** En avant-plan: *Homo sapiens* tentant d'établir une interaction physique avec les machines.  Source: <https://en.wikipedia.org/wiki/Parallel_computing></p>
+</div>
+
+
+## Parallélisation des tâches
+
+La parallélisation des tâches (parallel computing) consiste à lancer simultanément uen série de processus informatiques sur un système informatique.
+
+Les tâches peuvent être distribuées  sur plusieurs processeurs (**Computer Processing Unit**, **CPU**) d'un même ordinateur et/ou sur plusieurs ordinateurs (grappes de serveurs). 
+
+La distribution des tâches sur les processeurs et ordinateurs repose sur un logiciel appelé **gestionnaire de tâches** (**job scheduler**). Les utilisateurs soumettent les tâches (sous forme de commandes de terminal) au gestionnaire, qui pilote leur exécution sur les différents processeurs et/ou noeuds d'une grappe. 
+
+
 
 
 

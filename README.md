@@ -11,3 +11,8 @@ This repository contains tutorials to use the **National Network of Computing Re
 # Practicals
 
 - [Connection to the NNCR cluster](practicals/NNCR-cluster_connection/NNCR-cluster_connection.html) (EN)
+
+
+# Additional doc
+
+- [NNCR task force](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/)

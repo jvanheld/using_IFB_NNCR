@@ -26,6 +26,50 @@
 <script src="NNCR-cluster_connection_files/navigation-1.1/tabsets.js"></script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -264,7 +308,12 @@ div.tocify {
 <div id="opening-a-connection-to-the-ifb-cluster" class="section level2">
 <h2>Opening a connection to the IFB cluster</h2>
 <p>In a Unix terminal, open an ssh connection to the IFB cluster.</p>
-<p><strong><em>Attention!</em></strong> You are now connected to the login machine of the cluster. The this should <em>never</em> be used to perform computation: its only function is to give you access to the computing nodes.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> [yourlogin]@hpc.poc-nncr-ifb.fr</code></pre></div>
+<p>Check the host name</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">hostname</span></code></pre></div>
+<p>This should display the following result:</p>
+<pre><code>slurm-client.ifb.local</code></pre>
+<p><strong><em>Attention!</em></strong> You are now connected to the login machine of the cluster, whose only function is to give you access to the computing nodes. <font color="red"><strong>This machine should never be used to perform computation</strong></font>. Indeed, running tasks on this machine would be very inefficient for you (there is a single CPU) and perturbate the connections of other users.</p>
 </div>
 <div id="running-an-interactive-session-on-a-cluster-node" class="section level2">
 <h2>Running an interactive session on a cluster node</h2>
@@ -275,9 +324,25 @@ div.tocify {
 <li>interactive session</li>
 </ul>
 <p></font></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">sinteractive</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">hostname</span></code></pre></div>
 </div>
 <div id="checking-your-environment" class="section level2">
 <h2>Checking your environment</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Get your login</span>
+<span class="fu">whoami</span>
+
+<span class="co">## Print the path to your home directory</span>
+<span class="bu">echo</span> <span class="va">$HOME</span>
+
+<span class="co">### What is your shell ?</span>
+<span class="bu">echo</span> <span class="va">$SHELL</span>
+
+<span class="co">## Get your path</span>
+<span class="bu">echo</span> <span class="va">$PATH</span>
+
+<span class="co">## Print all your environment variables</span>
+<span class="ex">printenv</span></code></pre></div>
 </div>
 <div id="downloading-protein-sequences" class="section level2">
 <h2>Downloading protein sequences</h2>
@@ -291,7 +356,18 @@ div.tocify {
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
+</div>
+<div id="materiel-supplementaire" class="section level1">
+<h1>Matériel supplémentaire</h1>
+<div id="documentation-du-nncr" class="section level2">
+<h2>Documentation du NNCR</h2>
+<ul>
+<li><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html">Utiliser conda sur le NNCR IFB</a></li>
+<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/slurm_user_guide.html">Utiliser slurm sur le NNCR IFB</a></p></li>
+<li><p><a href="https://it.igbmc.fr/doku.php?id=en:documentation:calcul-scientifique:sinteractive">Sessions interactives avec slurm</a></p></li>
+</ul>
 <hr />
+</div>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
