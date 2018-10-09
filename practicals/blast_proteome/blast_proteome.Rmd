@@ -52,6 +52,7 @@ To open a connection to the IFB NNCR, follow the totirla  [Tutorial](../NNCR-clu
 | Resource | URL and description |
 |-----------------------|--------------------------------------------|
 | Ensembl Bacteria | https://bacteria.ensembl.org/index.html <br>Database and browser for bacterial and archaeal genomes maintained at the European Bioinformatics Institute (EBI) |
+| GTF format | <https://genome.ucsc.edu/FAQ/FAQformat.html#format4> <br>Specification of the Gene Transfer Format (GTF) on the UCSC genome browser Web site | 
 
 # Tutorial
 

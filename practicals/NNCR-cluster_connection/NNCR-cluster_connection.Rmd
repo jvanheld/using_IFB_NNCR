@@ -79,7 +79,7 @@ The goal of this practical is to learn using bioinformatics tools on the Unix co
 In a Unix terminal, open an ssh connection to the IFB cluster.
 
 ```{bash eval=FALSE}
-ssh [yourlogin]@hpc.poc-nncr-ifb.fr
+ssh yourlogin@hpc.poc-nncr-ifb.fr
 ```
 
 At your first login, we recommend you to change your password, for the sake of security. This also lets you choose a password that you can remember. 
