@@ -1,0 +1,181 @@
+---
+title: "IFB NNCR"
+author: "Jacques van Helden"
+date: '`r Sys.Date()`'
+output:
+  slidy_presentation:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7
+    highlight: tango
+    incremental: no
+    keep_md: yes
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  beamer_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_tex: no
+    slide_level: 2
+    theme: Montpellier
+    toc: yes
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 3
+  ioslides_presentation:
+    css: slides.css
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7
+    highlight: tango
+    smaller: yes
+    toc: yes
+    widescreen: yes
+  word_document:
+    toc: yes
+    toc_depth: 3
+#font-import: http://fonts.googleapis.com/css?family=Risque
+subtitle: Panorama des méthodes et outils bioinformatiques - compléments
+font-family: Garamond
+transition: linear
+---
+
+```{r include=FALSE, echo=FALSE, eval=TRUE}
+library(knitr)
+
+options(width = 300)
+knitr::opts_chunk$set(
+  fig.width = 7, fig.height = 5, 
+  fig.align = "center", 
+  fig.path = "figures/sampling-estimation_",
+  size = "tiny", 
+  echo = FALSE, eval = TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+dir.slides <- "~/bioinfo1/practicals/blast_proteomes"
+setwd(dir.slides)
+```
+
+## Outils en ligne de commandes : pourquoi ?
+
+- Un grand nombre d'outils bioinformatiques ne sont pas munis d'interfaces interactives
+
+- Automatisation des tâches
+
+    - Gestion de processus complexes avec de nombreuses tâches
+    - Gestion de processus répétitifs: même tâche appliquée à de nombreux fichiers de données
+
+- High performance computing (HPC)
+
+    - utilisation de très grosses ressources de calcul et stockage
+
+- Traçabilité et reproducibilité des analyses
+
+    - scripts
+    - workflows
+
+## Environnements de travail 
+
+- Terminal de votre propre ordinateur (Linux, Mac OS X)
+- Machine Virtuelle ([VirtualBox](https://www.virtualbox.org/), [VWMare](https://www.vmware.com/))
+- Conteneurs logiciels ([Docker](https://www.docker.com/), [singularity](https://www.sylabs.io/singularity/))
+
+
+## Machine virtuelle
+
+- Composantes
+
+    - machine hôte: votre PC
+    - système opérateur de l'hôte (Linux, Mac, Windows)
+    - hyperviseur: logiciel qui permet de créer et faire tourner les machines virtuelles sur l'hôte
+    - machine virtuelle: émulation d'un autre ordinateur, qui tourne sur la machine hôte
+    - système opérateur de la machine virtuelle: Linux, Windows, ...
+
+- Applications typiques
+
+    - faire tourner un système Linux sur un PC Windows ou Mac
+    - tester un logiciel sous différents systèmes opérateurs
+    - isoler un service du système hôte (sécurité, segmentation des ressources)
+
+- Exemples de superviseurs
+
+    - VirtualBox (<https://www.virtualbox.org/>)
+    - VWMare (<https://www.vmware.com/>)
+
+
+## Virtualisation basée sur des conteneurs
+
+- Exécution d'applications sur un système opérateur partagé sans recours à une machine virtuelle
+
+- Intérêt
+
+    - combinaison d'applications et de librairies "à la carte"
+    - usage plus restreint des ressources de la machine hôte
+
+- Logiciels de gestion de conteneurs
+
+    - Docker (<https://www.docker.com/>)
+    - singularity (<https://www.sylabs.io/singularity/>)
+
+
+## Machines virtuelles versus containers
+
+
+```{r out.width="90%", fig.cap="**Comparaison de solutions de virtualisation.** Droite: machine virtuelle; centre: container Docker; droite: container Singularity . Source: Greg Kurtzer keynote at HPC Advisory Council 2017 @ Stanford"}
+include_graphics("images/vm_vs_container.png")
+```
+
+
+## Installation d'applications dans le système opérateur local
+
+- Avantages
+
+    - Disponibilité des applications
+    - Efficacité de l'exécution directe
+
+- Désavantages
+
+    - Dépendances (librairies système, librairies de langage, autres applications)
+    - Incompatibilités entre dépendances de différentes applications
+    - Certains logiciels et librairies requièrent une intervention de l'administrateur système
+    - Diversité des [gestionnaires de paquets](https://fr.wikipedia.org/wiki/Gestionnaire_de_paquets) ([package managers](https://en.wikipedia.org/wiki/Package_manager)) selon les systèmes opérateurs (apt-get, yum, ports, brew, ...).
+    - Certaines applications et librairies ne sont disponibles que pour certains gestionnaires de paquets
+
+## Conda
+
+- Doc : <https://conda.io/docs/>
+
+- Avantages
+
+    - Un gestionnaire de paquets multi-plateforme
+    - Toutes les installations se font au niveau de l'utilisateur
+    - Nombre croissant de logiciels et librairies  portés sous conda
+    - Effort maintenu par une large communauté d'informaticiens
+    - Gestion extrêmement précise des dépendances (version pour chaque élément)
+    - Désinstallation aisée des logiciels qui ne sont plus nécessaires
+    - L'essayer c'est l'adopter !
+
+- Désavantages
+
+    - Si  chaque utilisateur installe chaque outil et ses dépendances dans son propre compte, redondance et utilisation inutile d'espace disque
+
+
+
