@@ -332,6 +332,102 @@ div.tocify {
 <strong>EnsemblGenomes download filter</strong>.
 </p>
 </div>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Click on the <strong>FASTA</strong> link in the column <strong>Protein sequences</strong>/</p></li>
+<li><p>and select <strong>Copy link address</strong>.</p></li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/protein_fasta_link.png" alt="**EnsemblGenomes** Link to download all protein sequences for a selected organism. " width="200" />
+<p class="caption">
+<strong>EnsemblGenomes</strong> Link to download all protein sequences for a selected organism.
+</p>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Come back to the Unix terminal of the IFB NNCR.</p></li>
+<li><p>Create a directory for the current practical.</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> -p ~/bacteria_blast
+<span class="bu">cd</span> ~/bacteria_blast</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>type <code>wget -rNL</code> and paste the content of the clipboard. This should give the following command (note: at the tiem you run this tutorial, the release may be different, this one is from October 2018).</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/pep/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.gz
+
+<span class="co">## Check that the file is there</span>
+<span class="fu">ls</span> -l
+
+<span class="co">## Uncompress the file</span>
+<span class="fu">gunzip</span> Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.gz
+
+<span class="co"># Measure the size of the uncompressed file</span>
+<span class="fu">du</span> -k Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa
+
+<span class="co"># Check the 20 fist lines of the file</span>
+<span class="fu">head</span> -n 20 Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa
+
+<span class="co"># Check the 20 last lines of the file</span>
+<span class="fu">tail</span> -n 20 Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa</code></pre></div>
+</div>
+<div id="downloading-genome-annotations" class="section level2">
+<h2>Downloading genome annotations</h2>
+<p>After having downloaded the protein sequences, we will download gene annotations. In EnsemblGenomes, annotations are available in different formats, including GTF, a text file with columns separated by tabulations.</p>
+<ol style="list-style-type: decimal">
+<li><p>We In the browser, come back to the EnsemblGenomes Bacteria Download site, select MG1655 and follow the same instructions as above to download and uncompress the GTF file.</p></li>
+<li><p>Uncompress the gzi archive.</p></li>
+</ol>
+</div>
+<div id="exercise-genome-annotations" class="section level2">
+<h2>Exercise: genome annotations</h2>
+<p>As an exercise, you will now elaborate Unix commands to explore the content of E.coli genome annotations.</p>
+<p>For this, we recommmend to use and combine the following commands. In order to fine-tune the parameters, read their manual on the Unix terminal by typing <code>man [command_name]</code> (for example <code>man wc</code>).</p>
+<table style="width:94%;">
+<colgroup>
+<col width="13%" />
+<col width="80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>wc</td>
+<td>count lines, words and characters of a file</td>
+</tr>
+<tr class="even">
+<td>cut</td>
+<td>cut specific columns of a text file</td>
+</tr>
+<tr class="odd">
+<td>grep</td>
+<td>select rows of a file that match a given query (string, regular expression)</td>
+</tr>
+<tr class="even">
+<td>awk</td>
+<td>a powerful tool to work on text files, combining row filters, column selections, and many other features.</td>
+</tr>
+<tr class="odd">
+<td>sort</td>
+<td>sort the rows of a text file based on user-specified columns. The sorting can be done either alphabetically or numerically, in ascending or descending order</td>
+</tr>
+<tr class="even">
+<td>uniq</td>
+<td>discard redundant lines from a text file. The option <code>-c</code> counts the number of occurrences of each line in a redundant file</td>
+</tr>
+</tbody>
+</table>
+<p>You can learn more Unix commands by typing “Linux cheat sheet” in any Web search engine.</p>
+<p>We ask you to write all the answers in a text file, with comments, in order to enable other people to reproduce all your commands.</p>
+<div id="questions" class="section level3">
+<h3>Questions</h3>
+<ol style="list-style-type: decimal">
+<li>How many rows contains the GTF file for E.coli K12 MG1655 ?</li>
+<li><p>How many annotation rows are there in the GTF file (for this, you need to discard the comment rows starting with a <code>#</code> character) ?</p></li>
+<li><p>How many of these rows correspond to genes ?</p></li>
+</ol>
+</div>
 </div>
 <div id="activating-the-conda-environment-for-blast-on-the-nncr-cluster" class="section level2">
 <h2>Activating the conda environment for blast on the NNCR cluster</h2>

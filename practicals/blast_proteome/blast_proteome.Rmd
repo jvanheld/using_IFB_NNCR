@@ -97,6 +97,104 @@ Each student will chose a different bacteria to perform the search.
 include_graphics("images/ensemblgenomes_bacteria_ftp_mg1655.png")
 ```
 
+4. Click on the **FASTA** link in the column **Protein sequences**/ 
+
+
+5. and select **Copy link address**. 
+
+```{r out.width="200", fig.cap="**EnsemblGenomes** Link to download all protein sequences for a selected organism. ", echo=FALSE}
+include_graphics("images/protein_fasta_link.png")
+```
+
+5. Come back to the Unix terminal of the IFB NNCR.
+
+6. Create a directory for the current practical. 
+
+```{bash eval=FALSE}
+mkdir -p ~/bacteria_blast
+cd ~/bacteria_blast
+```
+
+
+7. type `wget -rNL` and paste the content of the clipboard. This should give the following command (note: at the tiem you run this tutorial, the release may be different, this one is from October 2018). 
+
+```{bash eval=FALSE}
+wget --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/pep/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.gz
+
+## Check that the file is there
+ls -l
+
+## Uncompress the file
+gunzip Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.gz
+
+# Measure the size of the uncompressed file
+du -k Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa
+
+# Check the 20 fist lines of the file
+head -n 20 Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa
+
+# Check the 20 last lines of the file
+tail -n 20 Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa
+```
+
+
+## Downloading genome annotations
+
+After having downloaded the protein sequences, we will download gene annotations. In EnsemblGenomes, annotations are available in different formats, including GTF, a text file with columns separated by tabulations. 
+
+1. We In the browser, come back to the EnsemblGenomes Bacteria Download site, select MG1655 and follow the same instructions as above to download and uncompress the GTF file. 
+
+2. Uncompress the gzi archive. 
+
+
+## Exercise: genome annotations
+
+As an exercise, you will now elaborate  Unix commands to explore the content of E.coli genome annotations. 
+
+For this, we recommmend to use and combine the following commands. In order to fine-tune the parameters, read their manual on the Unix terminal by typing `man [command_name]` (for example `man wc`).
+
+| Command | Usage |
+|---------|---------------------------------------------------------|
+| wc | count lines, words and characters of a file |
+| cut | cut specific columns of a text file |
+| grep | select rows of a file that match a given query (string, regular expression) |
+| awk | a powerful tool to work on text files, combining row filters, column selections, and many other features. |
+| sort | sort the rows of a text file based on user-specified columns. The sorting can be done either alphabetically or numerically, in ascending or descending order |
+| uniq | discard redundant lines from a text file. The option `-c` counts the number of occurrences of each line in a redundant file |
+
+You can learn more Unix commands by typing "Linux cheat sheet" in any Web search engine. 
+
+
+We ask you to write all the answers in a text file, with comments, in order to enable other people to reproduce all your commands. 
+
+### Questions
+
+1. How many rows contains the GTF file for E.coli K12 MG1655 ?
+2. How many annotation rows are there in the GTF file (for this, you need to discard the comment rows starting with a `#` character) ?
+
+3. How many of these rows correspond to genes ? 
+
+```{bash eval=FALSE, echo=FALSE}
+## Solution
+wget --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf.gz
+
+gunzip -f Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf.gz
+
+## How many rows contains the GTF file for E.coli K12 MG1655 ?
+wc -l Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf
+
+## How many of these rows correspond to genes ? 
+## How many annotation rows contains the GTF file 
+grep -v '^#' Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf | wc -l
+
+## How many of these rows correspond to genes ? 
+grep -v '^#' Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf \
+  | awk -F '\t' '$3 == "gene"' | wc -l
+
+```
+
+
+
 
 ## Activating the conda environment for blast on the NNCR cluster
 
