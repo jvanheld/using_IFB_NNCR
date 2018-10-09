@@ -12,6 +12,7 @@ This repository contains tutorials to use the **National Network of Computing Re
 
 - [Connection to the NNCR cluster](practicals/NNCR-cluster_connection/NNCR-cluster_connection.html) (EN)
 
+- [Running BLAST on the command line](practicals/blast_proteome/blast_proteome.html) (EN)
 
 # Additional doc
 
