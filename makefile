@@ -1,0 +1,31 @@
+################################################################
+## Synchronize web site on the server
+
+include ${RSAT}/makefiles/util.mk
+MAKEFILE=makefile
+
+################################################################
+## Clean temporary files created by emacs
+clean:
+	find . -name '*~' -exec rm {} \;
+	find . -name '.#*' -exec rm {} \;
+	find . -name '.DS_Store' -exec rm {} \;
+
+
+################################################################
+## Publish on the web site
+TO_SYNC=*
+publish: clean
+	git push
+
+################################################################
+## Browse the Web site
+#BROWSER=firefox
+LOCAL=README.html
+local:
+	open  ${LOCAL}
+
+WEB_URL=https://jvanheld.github.io/using_IFB_NNCR/
+web:
+	open  ${WEB_URL}
+
