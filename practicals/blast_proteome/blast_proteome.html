@@ -435,7 +435,47 @@ div.tocify {
 </div>
 <div id="activating-the-conda-environment-for-blast-on-the-nncr-cluster" class="section level2">
 <h2>Activating the conda environment for blast on the NNCR cluster</h2>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="bu">source</span> <span class="va">$CONDA_HOME</span>/bin/activate blast-2.7.1</code></pre></div>
+<p>In addition to facilitating the installation of software tools on different operating system, conda also permits to create modules that regroup a set of tools usually used together (for example NGS analysis, protein structure, proteomics, …).</p>
+<p>The IFB NNCR cluster is already equipped with a series of conda environments with the classical bioinformatics tools.</p>
+<p>Before being able to use a tool, you must activate the corresponding environment.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## List the conda environments available on the system</span>
+<span class="va">$CONDA_HOME</span><span class="ex">/bin/conda</span> env list
+
+<span class="co">## FInd the blast environment</span>
+<span class="va">$CONDA_HOME</span><span class="ex">/bin/conda</span> env list <span class="kw">|</span> <span class="fu">grep</span> -i blast
+
+<span class="co">## Activate the blast environment. </span>
+<span class="bu">source</span> <span class="va">$CONDA_HOME</span>/bin/activate blast-2.7.1
+
+<span class="co">## Check the location of the blastp command</span>
+<span class="fu">which</span> blastp
+
+<span class="co">## Deactivate the current environment</span>
+<span class="bu">source</span> <span class="va">$CONDA_HOME</span>/bin/deactivate
+
+<span class="co">## Re-activate the blast environment</span>
+<span class="bu">source</span> <span class="va">$CONDA_HOME</span>/bin/activate blast-2.7.1</code></pre></div>
+</div>
+<div id="formatting-the-blast-database-for-your-reference-genome" class="section level2">
+<h2>Formatting the blast database for your reference genome</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Get the usage of makeblastdb (formal specification of the command syntax)</span>
+<span class="ex">makeblastdb</span> -h
+
+<span class="co">## Get the help for makeblastdb (explanation of the options)</span>
+<span class="ex">makeblastdb</span> -help
+
+<span class="co">## Buil blast database with all the protein sequences of E.coli</span>
+<span class="ex">makeblastdb</span> -in Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  -dbtype prot</code></pre></div>
+<p>Get the help for <em>blastp</em>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Command  syntax</span>
+<span class="ex">blastp</span> -h
+
+<span class="co">## Help</span>
+<span class="ex">blastp</span> -help</code></pre></div>
+</div>
+<div id="e.-coli-versus-e.-coli" class="section level2">
+<h2>E. coli versus E. coli</h2>
+<p><strong>Exercise: </strong> build a command that compares the sequences of all the E.coli proteins against each other, and store the results in a tab-delimited file with a single line per hit (we do not need the alignments).</p>
 <hr />
 </div>
 </div>

@@ -199,10 +199,60 @@ grep -v '^#' Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf \
 
 ## Activating the conda environment for blast on the NNCR cluster
 
+In addition to facilitating the installation of software tools on different operating system, conda also permits to create modules that regroup a set of tools usually used together (for example NGS analysis, protein structure, proteomics, ...). 
+
+The IFB NNCR cluster is already equipped with a series of conda environments with the classical bioinformatics tools. 
+
+Before being able to use a tool, you must activate the corresponding environment. 
+
 ```{bash eval=FALSE}
+## List the conda environments available on the system
+$CONDA_HOME/bin/conda env list
+
+## FInd the blast environment
+$CONDA_HOME/bin/conda env list | grep -i blast
+
+## Activate the blast environment. 
 source $CONDA_HOME/bin/activate blast-2.7.1
 
+## Check the location of the blastp command
+which blastp
+
+## Deactivate the current environment
+source $CONDA_HOME/bin/deactivate
+
+## Re-activate the blast environment
+source $CONDA_HOME/bin/activate blast-2.7.1
 ```
+
+
+## Formatting the blast database for your reference genome
+
+```{bash eval=FALSE}
+## Get the usage of makeblastdb (formal specification of the command syntax)
+makeblastdb -h
+
+## Get the help for makeblastdb (explanation of the options)
+makeblastdb -help
+
+## Buil blast database with all the protein sequences of E.coli
+makeblastdb -in Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  -dbtype prot
+```
+
+Get the help for *blastp*. 
+
+```{bash eval=FALSE}
+## Command  syntax
+blastp -h
+
+## Help
+blastp -help
+
+```
+
+## E. coli versus E. coli
+
+**Exercise: ** build a command that compares the sequences of all the E.coli proteins against each other, and store the results in a tab-delimited file with a single line per hit (we do not need the alignments).   
 
 
 ****************************************************************
