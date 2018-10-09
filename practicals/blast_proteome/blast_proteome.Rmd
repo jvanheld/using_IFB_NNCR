@@ -1,0 +1,81 @@
+---
+title: "Command-line use of bioinformatics tools"
+author: "Jacques van Helden"
+date: 'Created: 8/10/2018; last update: `r Sys.Date()`'
+output:
+  html_document:
+    self_contained: false
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  md_document:
+    variant: markdown_github
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 2
+  word_document:
+    toc: yes
+    toc_depth: 2
+#bibliography: ./geneset_functional_analysis.bib
+---
+
+
+```{r setup, include=FALSE}
+library(knitr, warn.conflicts = FALSE)
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  results = TRUE, 
+  message = FALSE,
+  fig.align = "center")
+
+dir.main <- "~/IFB/NNCR/using_IFB_NNCR/"
+dir.tp <- file.path(dir.main, "practicals", "")
+setwd(dir.tp)
+
+```
+
+****************************************************************
+# Prerequisite
+
+This practical assumes that you are connected to a cluster of the IFB NNCR. This enables you to benefit from a software environment with pre-installed software tools for the different fields of bioinformatics.
+
+To open a connection to the IFB NNCR, follow the totirla  [Tutorial](../NNCR-cluster_connection/NNCR-cluster_connection.html) | 
+
+
+# Resources
+
+| Resource | URL and description |
+|-----------------------|--------------------------------------------|
+| Ensembl Bacteria | https://bacteria.ensembl.org/index.html <br>Database and browser for bacterial and archaeal genomes maintained at the European Bioinformatics Institute (EBI) |
+
+# Tutorial
+
+## Downloading protein sequences and gene annotations from Ensembl genome
+
+As reference genome, we will use the strain *K12 MG1655* of  *Escherichia coli*. 
+
+1. In a web browser, open a connexion to Ensembl Bacteria (<https://bacteria.ensembl.org>)
+
+
+## Activating the conda environment for blast on the NNCR cluster
+
+```{bash eval=FALSE}
+source $CONDA_HOME/bin/activate blast-2.7.1
+
+```
+
+
+****************************************************************
+# References
+
+
+
+
+
+
+

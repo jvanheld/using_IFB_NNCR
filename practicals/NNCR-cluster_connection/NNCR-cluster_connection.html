@@ -283,15 +283,16 @@ div.tocify {
 <td><a href="http://france-bioinformatique.fr/" class="uri">http://france-bioinformatique.fr/</a> <br>Site Web de l’Institut Français de bioinformatique</td>
 </tr>
 <tr class="even">
-<td>Anaconda</td>
-<td><a href="https://anaconda.org/" class="uri">https://anaconda.org/</a></td>
-</tr>
-<tr class="odd">
 <td>Doc NNCR</td>
 <td><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/" class="uri">http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/</a></td>
 </tr>
+<tr class="odd">
+<td>NNCR POC</td>
+<td>hpc.poc-nncr-ifb.fr<br>Cluster “Proof of concept” (POC) du NNCR, accessible par ssh (requiert un login personnel)</td>
+</tr>
 </tbody>
 </table>
+<!--| Anaconda | <https://anaconda.org/> |-->
 <hr />
 </div>
 <div id="goal-of-this-practical" class="section level1">
@@ -309,23 +310,13 @@ div.tocify {
 <h2>Opening a connection to the IFB cluster</h2>
 <p>In a Unix terminal, open an ssh connection to the IFB cluster.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> [yourlogin]@hpc.poc-nncr-ifb.fr</code></pre></div>
+<p>At your first login, we recommend you to change your password, for the sake of security. This also lets you choose a password that you can remember.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">passwd</span></code></pre></div>
 <p>Check the host name</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">hostname</span></code></pre></div>
 <p>This should display the following result:</p>
 <pre><code>slurm-client.ifb.local</code></pre>
 <p><strong><em>Attention!</em></strong> You are now connected to the login machine of the cluster, whose only function is to give you access to the computing nodes. <font color="red"><strong>This machine should never be used to perform computation</strong></font>. Indeed, running tasks on this machine would be very inefficient for you (there is a single CPU) and perturbate the connections of other users.</p>
-</div>
-<div id="running-an-interactive-session-on-a-cluster-node" class="section level2">
-<h2>Running an interactive session on a cluster node</h2>
-<p><font color="red"></p>
-<ul>
-<li>definition of the key concepts of cluster: node, CPU, …</li>
-<li>job schedulers, slurm</li>
-<li>interactive session</li>
-</ul>
-<p></font></p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">sinteractive</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">hostname</span></code></pre></div>
 </div>
 <div id="checking-your-environment" class="section level2">
 <h2>Checking your environment</h2>
@@ -344,13 +335,17 @@ div.tocify {
 <span class="co">## Print all your environment variables</span>
 <span class="ex">printenv</span></code></pre></div>
 </div>
-<div id="downloading-protein-sequences" class="section level2">
-<h2>Downloading protein sequences</h2>
-<p>For this tutorial, each student will select a bacterial genome of interest.</p>
-</div>
-<div id="installing-your-tools-with-conda" class="section level2">
-<h2>Installing your tools with conda</h2>
-<p><a href="https://conda.io/docs/">conda</a></p>
+<div id="running-an-interactive-session-on-a-cluster-node" class="section level2">
+<h2>Running an interactive session on a cluster node</h2>
+<p>Normally, tasks should be sent to the cluster via de job scheduler.</p>
+<p>However, for this introductory tutorial we will start tasks on a node of the cluster.</p>
+<p>For this, we will use the command <code>srun</code> command, which opens a bash session on one of the nodes of the cluster. You can then check the name of the node on which your interactive session has been open.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">srun</span> --pty bash
+
+<span class="co">## Check the host name (it should be different from the login machine)</span>
+<span class="fu">hostname</span></code></pre></div>
+<p><strong>Note: </strong> the interactive mode is convenient for a quick test or, in some cases, to debug a script, but it is not the normal use of a cluster. We will show in a separate section the proper way to submit taks to the jobs scheduler.</p>
+<p>You are now ready to start using the NNCR facilities.</p>
 <hr />
 </div>
 </div>
@@ -359,15 +354,16 @@ div.tocify {
 </div>
 <div id="materiel-supplementaire" class="section level1">
 <h1>Matériel supplémentaire</h1>
-<div id="documentation-du-nncr" class="section level2">
-<h2>Documentation du NNCR</h2>
 <ul>
-<li><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html">Utiliser conda sur le NNCR IFB</a></li>
+<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/">Documentation du NNCR</a></p></li>
+<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/logging-in.html">Se connecter au cluster</a></p></li>
 <li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/slurm_user_guide.html">Utiliser slurm sur le NNCR IFB</a></p></li>
-<li><p><a href="https://it.igbmc.fr/doku.php?id=en:documentation:calcul-scientifique:sinteractive">Sessions interactives avec slurm</a></p></li>
+<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html">Utiliser conda sur le NNCR IFB</a></p></li>
 </ul>
+<!--
+- [Sessions interactives avec slurm](https://it.igbmc.fr/doku.php?id=en:documentation:calcul-scientifique:sinteractive)
+-->
 <hr />
-</div>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>

@@ -57,8 +57,10 @@ setwd(dir.tp)
 |  Name | URL  |
 |----------------|-------------------------------------------------------|
 | IFB |  <http://france-bioinformatique.fr/> <br>Site Web de l'Institut Français de bioinformatique |
-| Anaconda | <https://anaconda.org/> |
 | Doc NNCR | <http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/> |
+| NNCR POC | hpc.poc-nncr-ifb.fr<br>Cluster "Proof of concept" (POC) du NNCR, accessible par ssh (requiert un login personnel) |
+
+<!--| Anaconda | <https://anaconda.org/> |-->
 
 ****************************************************************
 # Goal of this practical
@@ -80,6 +82,13 @@ In a Unix terminal, open an ssh connection to the IFB cluster.
 ssh [yourlogin]@hpc.poc-nncr-ifb.fr
 ```
 
+At your first login, we recommend you to change your password, for the sake of security. This also lets you choose a password that you can remember. 
+
+```{bash eval=FALSE}
+passwd
+```
+
+
 Check the host name
 
 ```{bash eval=FALSE}
@@ -93,28 +102,7 @@ This should display the following result:
 slurm-client.ifb.local
 ```
 
-
-
-
 ***Attention!*** You are now connected to the login machine of the cluster, whose only function is to give you access to the computing nodes. <font color="red">**This machine  should never be used to perform computation**</font>. Indeed, running tasks on this machine would be very inefficient for you (there is a single CPU) and perturbate the connections of other users. 
-
-## Running an interactive session on a cluster node
-
-<font color="red">
-
-- definition of the key concepts of cluster: node, CPU, ...
-- job schedulers, slurm 
-- interactive session
-
-</font>
-
-```{bash eval=FALSE}
-sinteractive
-```
-
-```{bash eval=FALSE}
-hostname
-```
 
 
 
@@ -137,25 +125,45 @@ echo $PATH
 printenv
 ```
 
-## Downloading protein sequences
 
-For this tutorial, each student will select a bacterial genome of interest. 
+## Running an interactive session on a cluster node
 
-## Installing your tools with conda
+Normally, tasks should be sent to the cluster via de job scheduler. 
 
-[conda](https://conda.io/docs/) 
+However, for this introductory tutorial we will start tasks on a node of the cluster. 
+
+For this, we will use the command `srun` command, which opens a bash session on one of the nodes of the cluster. You can then check the name of the node on which your interactive session has been open. 
+
+```{bash eval=FALSE}
+srun --pty bash
+
+## Check the host name (it should be different from the login machine)
+hostname
+```
+
+**Note: ** the interactive mode is convenient for a quick test or, in some cases, to debug a script, but it is not the normal use of a cluster. We will show in a separate section the proper way to submit taks to the jobs scheduler. 
+
+You are now ready to start using the NNCR facilities. 
+
+
 
 ****************************************************************
 # Exercises
 
 # Matériel supplémentaire
 
-## Documentation du NNCR
+- [Documentation du NNCR](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/)
 
-- [Utiliser conda sur le NNCR IFB](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html)
+- [Se connecter au cluster](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/logging-in.html)
+
 - [Utiliser slurm sur le NNCR IFB](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/slurm_user_guide.html)
 
+- [Utiliser conda sur le NNCR IFB](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html)
+
+
+<!--
 - [Sessions interactives avec slurm](https://it.igbmc.fr/doku.php?id=en:documentation:calcul-scientifique:sinteractive)
+-->
 
 ****************************************************************
 # References
