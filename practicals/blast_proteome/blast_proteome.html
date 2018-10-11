@@ -12,7 +12,7 @@
 <meta name="author" content="Jacques van Helden" />
 
 
-<title>Command-line use of bioinformatics tools</title>
+<title>Using BLAST on the command line</title>
 
 <script src="blast_proteome_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,6 +24,7 @@
 <link href="blast_proteome_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="blast_proteome_files/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="blast_proteome_files/navigation-1.1/tabsets.js"></script>
+<script src="blast_proteome_files/navigation-1.1/codefolding.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -64,6 +65,9 @@ code > span.do { color: #7f9f7f; } /* Documentation */
 code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
 code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
 code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -141,6 +145,14 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
 
 
 
@@ -244,11 +256,19 @@ div.tocify {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Command-line use of bioinformatics tools</h1>
+
+<h1 class="title toc-ignore">Using BLAST on the command line</h1>
 <h4 class="author"><em>Jacques van Helden</em></h4>
-<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-09</em></h4>
+<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-11</em></h4>
 
 </div>
 
@@ -280,6 +300,14 @@ div.tocify {
 <tr class="even">
 <td>GTF format</td>
 <td><a href="https://genome.ucsc.edu/FAQ/FAQformat.html#format4" class="uri">https://genome.ucsc.edu/FAQ/FAQformat.html#format4</a> <br>Specification of the Gene Transfer Format (GTF) on the UCSC genome browser Web site</td>
+</tr>
+<tr class="odd">
+<td>Ensembl Bacteria Metadata</td>
+<td><a href="ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria/species_EnsemblBacteria.txt" class="uri">ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria/species_EnsemblBacteria.txt</a><br>table with information about each sequenced genome</td>
+</tr>
+<tr class="even">
+<td>Selected genomes</td>
+<td><a href="data/microme_selected_organisms_cross_references.tsv">MICROME genome table</a><br>A table containing 80 genomes of interest for the MICROME European network.</td>
 </tr>
 </tbody>
 </table>
@@ -353,10 +381,13 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> -p ~/bacteria_blast
 <span class="bu">cd</span> ~/bacteria_blast</code></pre></div>
 <ol start="7" style="list-style-type: decimal">
-<li>type <code>wget -rNL</code> and paste the content of the clipboard. This should give the following command (note: at the tiem you run this tutorial, the release may be different, this one is from October 2018).</li>
+<li>type <code>wget --no-clubber</code> and paste the content of the clipboard. This should give the following command (note: at the tiem you run this tutorial, the release may be different, this one is from October 2018).</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/pep/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.gz
-
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/pep/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.gz</code></pre></div>
+<p>If you want to know the meaning of the <code>--no-clobber</code> option you can checek <code>wget</code> manual with the command.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">man</span> wget</code></pre></div>
+<p>We will now check if the file has been correctly downloaded, and uncompress it.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">
 <span class="co">## Check that the file is there</span>
 <span class="fu">ls</span> -l
 
@@ -377,8 +408,25 @@ div.tocify {
 <p>After having downloaded the protein sequences, we will download gene annotations. In EnsemblGenomes, annotations are available in different formats, including GTF, a text file with columns separated by tabulations.</p>
 <ol style="list-style-type: decimal">
 <li><p>We In the browser, come back to the EnsemblGenomes Bacteria Download site, select MG1655 and follow the same instructions as above to download and uncompress the GTF file.</p></li>
-<li><p>Uncompress the gzi archive.</p></li>
+<li><p>Uncompress the gzip archive.</p></li>
 </ol>
+<div id="solution" class="section level3">
+<h3>Solution</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Download genome annotation file (GTF format)</span>
+<span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf.gz
+
+<span class="co">## Uncompress genome annotation file</span>
+<span class="fu">gunzip</span> Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf.gz
+
+<span class="co">## Check that the uncompressed file is there</span>
+<span class="fu">ls</span> Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf
+
+<span class="co">## Check the head of the annotaiton file</span>
+<span class="fu">head</span> -n 20 Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf
+
+<span class="co">## Check the tail</span>
+<span class="fu">tail</span> -n 10 Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf</code></pre></div>
+</div>
 </div>
 <div id="exercise-genome-annotations" class="section level2">
 <h2>Exercise: genome annotations</h2>
@@ -434,15 +482,18 @@ div.tocify {
 <li><p>Select all the rows of the GTF file corresponding to a gene, and store them in a separate file named <code>genes_Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.41.gtf</code>.</p></li>
 </ol>
 </div>
+<div id="solution-1" class="section level3">
+<h3>Solution</h3>
+<hr />
 </div>
 </div>
-<div id="running-blast-for-all-proteins-of-a-genome" class="section level1">
-<h1>Running blast for all proteins of a genome</h1>
+</div>
+<div id="searching-sequence-similarities-with-blast" class="section level1">
+<h1>Searching sequence similarities with BLAST</h1>
 <div id="activating-the-conda-environment-for-blast-on-the-nncr-cluster" class="section level2">
 <h2>Activating the conda environment for blast on the NNCR cluster</h2>
 <p>In addition to facilitating the installation of software tools on different operating system, conda also permits to create modules that regroup a set of tools usually used together (for example NGS analysis, protein structure, proteomics, …).</p>
-<p>The IFB NNCR cluster is already equipped with a series of conda environments with the classical bioinformatics tools.</p>
-<p>Before being able to use a tool, you must activate the corresponding environment.</p>
+<p>The IFB NNCR cluster is already equipped with a series of conda environments with the classical bioinformatics tools. Before being able to use a tool, you must activate the corresponding environment.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## List the conda environments available on the system</span>
 <span class="va">$CONDA_HOME</span><span class="ex">/bin/conda</span> env list
 
@@ -455,31 +506,97 @@ div.tocify {
 <span class="co">## Check the location of the blastp command</span>
 <span class="fu">which</span> blastp
 
-<span class="co">## Deactivate the current environment</span>
+<span class="co">## Deactivate the current environment. </span>
 <span class="bu">source</span> <span class="va">$CONDA_HOME</span>/bin/deactivate
+<span class="co">## Note the change in the shell prompt</span>
 
 <span class="co">## Re-activate the blast environment</span>
-<span class="bu">source</span> <span class="va">$CONDA_HOME</span>/bin/activate blast-2.7.1</code></pre></div>
+<span class="bu">source</span> <span class="va">$CONDA_HOME</span>/bin/activate blast-2.7.1
+<span class="co">## Note the change in the shell prompt</span></code></pre></div>
+<p>Note: if you are working on a machine that does not belong to the federation of NNCR clusters, you can create the blast environment in your own conda folder with the following command (assuming that the conda package has been installed and that its executable files are in your path).</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## </span><span class="al">ATTENTION</span><span class="co">: DO NOT RUN THIS COMMAND IF YOU ARE ON THE NNCR CLUSTER,</span>
+<span class="co">## because this would occupy a big space to reinstall BLAST in your </span>
+<span class="co">## own account, although it is already available for all users. </span>
+<span class="ex">conda</span> create -n blast-2.7.1 blast==2.7.1</code></pre></div>
 </div>
-<div id="formatting-the-blast-database-for-your-reference-genome" class="section level2">
-<h2>Formatting the blast database for your reference genome</h2>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Get the usage of makeblastdb (formal specification of the command syntax)</span>
+<div id="formatting-the-blast-database-for-the-reference-genome" class="section level2">
+<h2>Formatting the blast database for the reference genome</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Check the path of the program makeblastdb (it should be in your conda folder)</span>
+<span class="fu">which</span> makeblastdb
+
+<span class="co">## Get the usage of makeblastdb (formal specification of the command syntax)</span>
 <span class="ex">makeblastdb</span> -h
 
 <span class="co">## Get the help for makeblastdb (explanation of the options)</span>
 <span class="ex">makeblastdb</span> -help
 
-<span class="co">## Buil blast database with all the protein sequences of E.coli</span>
-<span class="ex">makeblastdb</span> -in Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  -dbtype prot</code></pre></div>
-<p>Get the help for <em>blastp</em>.</p>
+<span class="co">## Build a BLAST database with all the protein sequences of E.coli</span>
+<span class="ex">makeblastdb</span> -in Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  -dbtype prot
+
+<span class="co">## Check the new files that were created with this commands. </span>
+<span class="co">## For this we list the files in reverse (-r) temporal (-t) order. </span>
+<span class="fu">ls</span> -1tr</code></pre></div>
+<p>The program <code>makeblastdb</code> created three files besides the input fasta file.</p>
+<pre><code>Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.pin
+Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.phr
+Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.psq</code></pre>
+<p>These files contain an index of all the oligopeptites found in all the sequences of the fasta file. This “k-mer” index will be used by BLAST to rapidly find all the sequences in the database that match a query sequence, and use these short correspondences to start an alignment.</p>
+</div>
+<div id="read-blastp-manual" class="section level2">
+<h2>Read <em>blastp</em> manual</h2>
+<p>Since we want to search a protein database with protein query sequences, we will use the <code>blastp</code> command.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Command  syntax</span>
 <span class="ex">blastp</span> -h
 
 <span class="co">## Help</span>
 <span class="ex">blastp</span> -help</code></pre></div>
+<p>OK, the first contact is a bit frightening, because blastp has many options. This is because this program allows you to run queries in different modes, with different parameters, and to export the results in different formats.</p>
+<p>In this tutorial we will show you the most usual ways to use the tool, and you will then be able to refine your search by combing back to the manual and understanding the use of additional options.</p>
 </div>
-<div id="e.-coli-versus-e.-coli" class="section level2">
-<h2>E. coli versus E. coli</h2>
+<div id="downloading-a-query-protein" class="section level2">
+<h2>Downloading a query protein</h2>
+<p>We will first search similarities from a given protein of interest. We will start from the “askartokinase 3” protein from <em>Escherichia coli</em>, which is the product of the gene lysC.</p>
+<p>Before starting the analysis, read the Uniprot record (<a href="https://www.uniprot.org/uniprot/P08660" class="uri">https://www.uniprot.org/uniprot/P08660</a>) in order to know the function and regulation of this protein.</p>
+<p>We will use BLAST to identify all the proteins of <em>Escherichia coli</em> that have significant similarities with the aspartokinase 3.</p>
+<p>For this we first need to download the sequence of this protein on our computer. The sequence can be downloaded directly from Uniprot.</p>
+<pre class="blast"><code>wget --no-clobber https://www.uniprot.org/uniprot/P08660.fasta</code></pre>
+</div>
+<div id="similiraty-search-for-one-sequence-against-a-database" class="section level2">
+<h2>Similiraty search for one sequence against a database</h2>
+<p>The following command search similarities for one or several query sequences provided in a fasta file (<code>P08660.fasta</code>) in a protein sequence database (<code>Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa</code>). By default, blastp prints the result on the screen, but we prefer to redirect it to a file in order to keep a trace of the result and inspect it later.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Search similarities for aspartokinase 3 in E.coli proteome</span>
+<span class="ex">blastp</span> \
+  -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
+  -query P08660.fasta \
+  <span class="op">&gt;</span> lysC_vs_Ecoli.txt
+  
+<span class="co">## Check the result</span>
+<span class="fu">less</span> lysC_vs_Ecoli.txt</code></pre></div>
+<div id="question-set-1" class="section level3">
+<h3>Question set 1</h3>
+<p><font color="#004488"> 1. How many hits were found in total? 2. How many of these have an E-value higher than 1? 3. What was the threshold on the E-value for this blastp search? 4. With this threshold, how many hits would we expeect if we use a random sequence as query? 5. How many alignments would you consider significant in this result? </font></p>
+</div>
+</div>
+</div>
+<div id="comparing-all-the-proteins-of-a-genome-against-another-one" class="section level1">
+<h1>Comparing all the proteins of a genome against another one</h1>
+<div id="downloading-a-query-genome" class="section level2">
+<h2>Downloading a query genome</h2>
+<ol style="list-style-type: decimal">
+<li><p>In EnsemblGenomes Download page, find the genome of <em>Bacillus subtilis subsp. subtilis str. 168</em>.</p></li>
+<li><p>Download the genome annotation (GTF file) and protein sequences (fasta file).</p></li>
+</ol>
+<div id="solution-2" class="section level3">
+<h3>Solution</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Download genome annotations for query organism</span>
+<span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz
+
+<span class="co">## Download protein sequeces for query organism</span>
+<span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/pep/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz</code></pre></div>
+</div>
+</div>
+<div id="all-proteins-from-e.-coli-versus-e.-coli" class="section level2">
+<h2>All proteins from E. coli versus E. coli</h2>
 <p><strong>Exercise: </strong> build a command that compares the sequences of all the E.coli proteins against each other, and store the results in a tab-delimited file with a single line per hit (we do not need the alignments).</p>
 <hr />
 </div>
