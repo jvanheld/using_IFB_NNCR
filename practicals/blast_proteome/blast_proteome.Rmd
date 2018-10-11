@@ -508,22 +508,45 @@ less shuffled_lysC_vs_Ecoli_synthesis.tsv
 ### Solution
 
 ```{bash eval=FALSE}
-## Download genome annotations for query organism
+## Download genome annotations for organism of interest
 wget --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz
 
-## Uncompress genome annotations for the query organism
+## Uncompress genome annotations for the organism of interest
 gunzip -f Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz
 
 ## Download protein sequeces for query organism
 wget --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/pep/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz
 
-## Uncompress protein sequences for the query organism
+## Uncompress protein sequences for the organism of interest
 gunzip -f Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz
 
 ## Check the result files
 ls -l Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1*
 
+
+## Format the blas database for the organism of interest
+makeblastdb -in Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa -dbtype  prot
+
 ```
+
+## Identifying aspartokinase homologs  in the proteome of interest
+
+
+```{bash eval=FALSE}
+blastp \
+  -db Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
+  -query P08660.fasta \
+  > lysC_vs_Bacillus_subtilis.txt
+  
+blastp -outfmt 7\
+  -db Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
+  -query P08660.fasta \
+  > lysC_vs_Bacillus_subtilis_outfmt7.tsv
+  
+```
+
+
+
 ## All proteins of *B.subtilis* against all proteins of *E. coli*
 
 
@@ -542,6 +565,8 @@ time blastp -outfmt 7 \
 grep -v '^#' Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv > Bacillus_subtilis__vs__Escherichia_coli_blastp_table.tsv  
 
 ```
+
+
 
 ### Questions
 
