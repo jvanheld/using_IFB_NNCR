@@ -498,9 +498,11 @@ less shuffled_lysC_vs_Ecoli_synthesis.tsv
 
 ## Downloading a query genome
 
-1. In EnsemblGenomes Download page, find the genome of *Bacillus subtilis subsp. subtilis str. 168*. 
+1. Open a connection to the [EnsemblGenomes Download page](https://bacteria.ensembl.org/info/website/ftp/) <https://bacteria.ensembl.org/info/website/ftp/>
 
-2. Download the genome annotation (GTF file) and protein sequences (fasta file). 
+2. Identify the genome of your organism of interest (for this tutorial, I will choose *Bacillus subtilis subsp. subtilis str. 168*, but each student should take a different organism). 
+
+3. Download the genome annotation (GTF file) and protein sequences (fasta file). 
 
 
 ### Solution
@@ -509,10 +511,41 @@ less shuffled_lysC_vs_Ecoli_synthesis.tsv
 ## Download genome annotations for query organism
 wget --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz
 
+## Uncompress genome annotations for the query organism
+gunzip -f Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz
+
 ## Download protein sequeces for query organism
 wget --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/pep/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz
+
+## Uncompress protein sequences for the query organism
+gunzip -f Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz
+
+## Check the result files
+ls -l Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1*
+
+```
+## All proteins of *B.subtilis* against all proteins of *E. coli*
+
+
+1. Write a command that searches for similarities for all proteins of your proteome of interest against all proteins of *E. coli*, and prints the output in tab-delimited format with comment lines. Save the output in a file name [your_organism]__vs__Escherichia_coli_blastp_outfmt7.tsv
+
+2. Use `grep` to select the non-comment lines and store them in a separate file
+
+
+```{bash eval=FALSE}
+## Note : we prepend the command "time" to measure the computation time, just for the sake of curiosity
+time blastp -outfmt 7 \
+  -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
+  -query Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
+  > Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv
+  
+grep -v '^#' Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv > Bacillus_subtilis__vs__Escherichia_coli_blastp_table.tsv  
+
 ```
 
+### Questions
+
+1. 
 
 ## All proteins from E. coli versus E. coli
 

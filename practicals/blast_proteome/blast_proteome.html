@@ -675,7 +675,8 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 <div id="downloading-a-query-genome" class="section level2">
 <h2>Downloading a query genome</h2>
 <ol style="list-style-type: decimal">
-<li><p>In EnsemblGenomes Download page, find the genome of <em>Bacillus subtilis subsp. subtilis str. 168</em>.</p></li>
+<li><p>Open a connection to the <a href="https://bacteria.ensembl.org/info/website/ftp/">EnsemblGenomes Download page</a> <a href="https://bacteria.ensembl.org/info/website/ftp/" class="uri">https://bacteria.ensembl.org/info/website/ftp/</a></p></li>
+<li><p>Identify the genome of your organism of interest (for this tutorial, I will choose <em>Bacillus subtilis subsp. subtilis str. 168</em>, but each student should take a different organism).</p></li>
 <li><p>Download the genome annotation (GTF file) and protein sequences (fasta file).</p></li>
 </ol>
 <div id="solution-4" class="section level3">
@@ -683,8 +684,34 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Download genome annotations for query organism</span>
 <span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz
 
+<span class="co">## Uncompress genome annotations for the query organism</span>
+<span class="fu">gunzip</span> -f Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz
+
 <span class="co">## Download protein sequeces for query organism</span>
-<span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/pep/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz</code></pre></div>
+<span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//fasta/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/pep/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz
+
+<span class="co">## Uncompress protein sequences for the query organism</span>
+<span class="fu">gunzip</span> -f Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa.gz
+
+<span class="co">## Check the result files</span>
+<span class="fu">ls</span> -l Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1*</code></pre></div>
+</div>
+</div>
+<div id="all-proteins-of-b.subtilis-against-all-proteins-of-e.-coli" class="section level2">
+<h2>All proteins of <em>B.subtilis</em> against all proteins of <em>E. coli</em></h2>
+<div id="question" class="section level3">
+<h3>Question</h3>
+<ol style="list-style-type: decimal">
+<li><p>Write a command that searches for similarities for all proteins of your proteome of interest against all proteins of <em>E. coli</em>, and prints the output in tab-delimited format with comment lines. Save the output in a file name [your_organism]__vs__Escherichia_coli_blastp_outfmt7.tsv</p></li>
+<li><p>Use <code>grep</code> to select the non-comment lines and store them in a separate file</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Note : we prepend the command &quot;time&quot; to measure the computation time, just for the sake of curiosity</span>
+<span class="bu">time</span> blastp -outfmt 7 \
+  -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
+  -query Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
+  <span class="op">&gt;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv
+  
+<span class="fu">grep</span> -v <span class="st">&#39;^#&#39;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv</code></pre></div>
 </div>
 </div>
 <div id="all-proteins-from-e.-coli-versus-e.-coli" class="section level2">
