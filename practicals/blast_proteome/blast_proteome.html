@@ -626,11 +626,21 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Shuffle the aspartokinase 3 sequence with the web tool <a href="http://www.bioinformatics.org/sms2/shuffle_protein.html" class="uri">http://www.bioinformatics.org/sms2/shuffle_protein.html</a>.</p></li>
 <li><p>Copy the result and save it in a local file.</p>
-<p><strong>Tip</strong> to edit a file this you can use the command <code>nano</code>.</p>
+<p><strong>Tip</strong> a simple way to copy some text in a file is to use the system command <code>cat</code></p>
+<ul>
+<li>in the terminal, type <code>cat &gt; shuffled_lysC.fa</code>. This opens the cat command in interactive mode: the program is expecting for you to type some content.</li>
+<li>paste the shuffled sequence</li>
+<li>type “Ctrl-D” to quit the interactive cat</li>
+<li><p>check the content of the file by typing</p>
+<p><code>cat shuffled_lysC.fa</code></p></li>
+</ul>
+<p><strong>Alternative</strong> you can use a text editor like <code>nano</code>.</p>
 <ul>
 <li>Type the command <code>nano shuffled_lysC.fa</code></li>
 <li>paste the shuffled sequence</li>
 <li>type Ctrl-X and answer “Y” to save the result</li>
+<li><p>check the content of the file by typing</p>
+<p><code>cat shuffled_lysC.fa</code></p></li>
 </ul></li>
 <li><p>Run a <code>blastp</code> search with this shuffled sequence against all proteins of <em>Escherichia coli</em>.</p></li>
 </ol>

@@ -445,12 +445,23 @@ cat P08660.fasta
 
 2. Copy the result and save it in a local file.
 
+    **Tip** a simple way to copy some text in a file is to use the system command `cat`
 
-    **Tip** to edit a file this you can use the command  `nano`. 
+    - in the terminal, type `cat > shuffled_lysC.fa`. This opens the cat command in interactive mode: the program is expecting for you to type some content. 
+    - paste the shuffled sequence
+    - type "Ctrl-D" to quit the interactive cat
+    - check the content of the file by typing 
+    
+        `cat shuffled_lysC.fa`
+
+    **Alternative** you can use a text editor like `nano`. 
     
     - Type the command `nano shuffled_lysC.fa`
     - paste the shuffled sequence
     - type Ctrl-X and answer "Y" to save the result
+    - check the content of the file by typing 
+    
+        `cat shuffled_lysC.fa`
 
 3. Run a `blastp` search with this shuffled sequence against all proteins of *Escherichia coli*. 
 
