@@ -248,7 +248,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Command-line use of bioinformatics tools</h1>
 <h4 class="author"><em>Jacques van Helden</em></h4>
-<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-09</em></h4>
+<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-11</em></h4>
 
 </div>
 
@@ -339,26 +339,25 @@ div.tocify {
 <h2>Running an interactive session on a cluster node</h2>
 <p>Normally, tasks should be sent to the cluster via de job scheduler.</p>
 <p>However, for this introductory tutorial we will start tasks on a node of the cluster.</p>
-<p>For this, we will use the command <code>srun</code> command, which opens a bash session on one of the nodes of the cluster. You can then check the name of the node on which your interactive session has been open.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">srun</span> --pty bash
+<p>For this, we will use the command <code>sinteractive</code> command, which opens a bash session on one of the nodes of the cluster. You can then check the name of the node on which your interactive session has been open.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">sinteractive</span>
 
 <span class="co">## Check the host name (it should be different from the login machine)</span>
 <span class="fu">hostname</span></code></pre></div>
-<p><strong>Note: </strong> the interactive mode is convenient for a quick test or, in some cases, to debug a script, but it is not the normal use of a cluster. We will show in a separate section the proper way to submit taks to the jobs scheduler.</p>
+<p><strong>Notes: </strong></p>
+<ol style="list-style-type: decimal">
+<li><p><font color="red">The interactive mode is not the normal way to use cluster</font>. It is convenient for didactic purposes (a tutorial like this one) to run a quick test or, in some cases, to debug a script. We will show in a separate section the proper way to submit taks to the job scheduler (<code>slurm</code>).</p></li>
+<li><p>The command <code>sinteractive</code> does several things to ease your work. It opens an interactive session to the cluster, and starts an application named <code>screen</code>, which keeps the session open even if you are disconnected for some reason (network interruption, time to quit your office and go back home). You can then restart the session later and find it exactly in the state you left it before loosing the connection.</p></li>
+<li><p>For more information read the doc at <a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/sinteractive.html" class="uri">http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/sinteractive.html</a></p></li>
+</ol>
 <p>You are now ready to start using the NNCR facilities.</p>
 <hr />
 </div>
 </div>
-<div id="exercises" class="section level1">
-<h1>Exercises</h1>
-</div>
-<div id="materiel-supplementaire" class="section level1">
-<h1>Matériel supplémentaire</h1>
+<div id="supplementary-information" class="section level1">
+<h1>Supplementary information</h1>
 <ul>
-<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/">Documentation du NNCR</a></p></li>
-<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/logging-in.html">Se connecter au cluster</a></p></li>
-<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/slurm_user_guide.html">Utiliser slurm sur le NNCR IFB</a></p></li>
-<li><p><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html">Utiliser conda sur le NNCR IFB</a></p></li>
+<li><a href="http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/">Documentation du NNCR</a></li>
 </ul>
 <!--
 - [Sessions interactives avec slurm](https://it.igbmc.fr/doku.php?id=en:documentation:calcul-scientifique:sinteractive)

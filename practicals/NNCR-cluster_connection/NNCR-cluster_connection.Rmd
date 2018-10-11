@@ -132,33 +132,32 @@ Normally, tasks should be sent to the cluster via de job scheduler.
 
 However, for this introductory tutorial we will start tasks on a node of the cluster. 
 
-For this, we will use the command `srun` command, which opens a bash session on one of the nodes of the cluster. You can then check the name of the node on which your interactive session has been open. 
+For this, we will use the command `sinteractive` command, which opens a bash session on one of the nodes of the cluster. You can then check the name of the node on which your interactive session has been open. 
 
 ```{bash eval=FALSE}
-srun --pty bash
+sinteractive
 
 ## Check the host name (it should be different from the login machine)
 hostname
 ```
 
-**Note: ** the interactive mode is convenient for a quick test or, in some cases, to debug a script, but it is not the normal use of a cluster. We will show in a separate section the proper way to submit taks to the jobs scheduler. 
+**Notes: ** 
+
+1. <font color="red">The interactive mode is not the normal way to use cluster</font>. It is convenient for didactic purposes (a tutorial like this one) to run a quick test or, in some cases, to debug a script. We will show in a separate section the proper way to submit taks to the job scheduler (`slurm`). 
+
+2. The command `sinteractive` does several things to ease your work. It opens an interactive session to the cluster, and starts an application named `screen`, which keeps the session open even if you are disconnected for some reason (network interruption, time to quit your office and go back home). You can then restart the session later and find it exactly in the state you left it before loosing the connection.
+
+3. For more information read the doc at <http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/sinteractive.html>
 
 You are now ready to start using the NNCR facilities. 
 
 
 
 ****************************************************************
-# Exercises
 
-# Matériel supplémentaire
+# Supplementary information
 
 - [Documentation du NNCR](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/)
-
-- [Se connecter au cluster](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/logging-in.html)
-
-- [Utiliser slurm sur le NNCR IFB](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/slurm_user_guide.html)
-
-- [Utiliser conda sur le NNCR IFB](http://taskforce-nncr.gitlab.poc-nncr-ifb.fr/doc/conda.html)
 
 
 <!--
