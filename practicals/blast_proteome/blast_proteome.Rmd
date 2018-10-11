@@ -387,8 +387,13 @@ less lysC_vs_Ecoli.txt
 4. With this threshold, how many hits would we expeect if we use a random sequence as query?
 5. How many alignments would you consider significant in this result?
 6. How many of these would you qualify of homologs?
-7. For each of these putative homologs, is it a paralog, ortholog or "other log" ?
+7. For each of these putative homologs, is it a paralog, ortholog or "other log"?
+8. Do you see a relationship between the E-value and some properties of the alignments?
 </font>
+
+## Getting a tabular synthesis of blast results
+
+By default, BLAST displays the detailed results of a similaty search, starting with a summary of the matches, followed by all the alignemnts. It can be convenient to generate a synthetic result indicating only the relevant statistics for each alignment. This can be done by tuning  BLAST options. 
 
 
 # Negative control: blast against a shuffled sequence
