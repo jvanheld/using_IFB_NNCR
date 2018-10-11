@@ -1,0 +1,81 @@
+ncbi_name_id	tax_id	microscope_genome_id	microscope_metacyc_id	organism_name	uniprot_proteome	obiw_genome_id	ncbi_family_name	ncbi_family_taxid	ncbi_order_name	ncbi_order_taxid
+Acinetobacter_ADP1_uid61597	62977	31	ACIAD31-150	Acinetobacter baylyi ADP1	ACIAD	acsppAA	Moraxellaceae	468	Pseudomonadales	72274
+Agrobacterium_tumefaciens_C58_uid57865	176299		AERS4332-150	Agrobacterium tumefaciens C58	AGRT5	agtumAB	Rhizobiaceae	82115	Rhizobiales	356
+Agrobacterium_tumefaciens_C58_uid57865	176299	332	AERS4332-150	Agrobacterium tumefaciens C58	AGRT5	agtumAA	Rhizobiaceae	82115	Rhizobiales	356
+Archaeoglobus_fulgidus_DSM_4304_uid57717	224325	244	ARCFU244-150	Archaeoglobus fulgidus DSM 4304	ARCFU	arfulAA	Archaeoglobaceae	2232	Archaeoglobales	2231
+Bacillus_anthracis__Ames_Ancestor__uid58083	261594	57	BACAA57-150	Bacillus anthracis 'Ames Ancestor'	BACAN	baantAA	Bacillaceae	186817	Bacillales	1385
+Bacillus_cereus_ATCC_14579_uid57975	226900	50	BACCR50-150	Bacillus cereus ATCC 14579	BACCR	bacerAA	Bacillaceae	186817	Bacillales	1385
+Bacillus_subtilis_168_uid57675	224308	7	BACSU7-150	Bacillus subtilis 168	BACSU	basubAA	Bacillaceae	186817	Bacillales	1385
+Bacteroides_thetaiotaomicron_VPI_5482_uid62913	226186	1027	BACTN1027-150	Bacteroides thetaiotaomicron VPI-5482	BACTN	batheAA	Bacteroidaceae	815	Bacteroidales	171549
+Beutenbergia_cavernae_DSM_12333_uid59047	471853	500	BEUC1815-150	Beutenbergia cavernae DSM 12333			Beutenbergiaceae	125316	Actinomycetales	2037
+Bifidobacterium_longum_NCC2705_uid57939	206672	746	BIFLO746-150	Bifidobacterium longum NCC2705	BIFLO	bilonAA	Bifidobacteriaceae	31953	Bifidobacteriales	85004
+Bordetella_pertussis_Tohama_I_uid57617	257313	73	BORPE73-150	Bordetella pertussis Tohama I	BORPE	boperAA	Alcaligenaceae	506	Burkholderiales	80840
+Borrelia_burgdorferi_B31_uid57581	224326	23	BORBU23-150	Borrelia burgdorferi B31	BORBU	boburAA	Spirochaetaceae	137	Spirochaetales	136
+Brachybacterium_faecium_DSM_4810_uid58649	446465	623	BRAFD1145-150	Brachybacterium faecium DSM 4810			Dermabacteraceae	85020	Actinomycetales	2037
+Bradyrhizobium_japonicum_USDA_110_uid57599	224911	100	BRAJA100-150	Bradyrhizobium japonicum USDA 110	BRAJA	brjapAA	Bradyrhizobiaceae	41294	Rhizobiales	356
+Burkholderia_pseudomallei_K96243_uid57733	272560	90	BURPS90-150	Burkholderia pseudomallei K96243	BURPS	bupseAA	Burkholderiaceae	119060	Burkholderiales	80840
+Campylobacter_jejuni_NCTC_11168_uid57587	192222	46	CAMJE46-150	Campylobacter jejuni subsp. jejuni NCTC 11168	CAMJE	cajejAA	Campylobacteraceae	72294	Campylobacterales	213849
+Capnocytophaga_ochracea_DSM_7271	521097	634	CAPOD1157-150	Capnocytophaga ochracea DSM 7271			Flavobacteriaceae	49546	Flavobacteriales	200644
+Caulobacter_crescentus_CB15_uid57891	190650	1083	CAUCN1083-150	Caulobacter crescentus CB15	CAUCR	cavibAA	Caulobacteraceae	76892	Caulobacterales	204458
+Chlamydia_trachomatis_D_UW_3_CX_uid57637	272561	15	CHLTR15-150	Chlamydia trachomatis D/UW-3/CX	CHLTR	chtraAA	Chlamydiaceae	809	Chlamydiales	51291
+Clostridium_acetobutylicum_ATCC_824_uid57677	272562	39	CLOAB39-150	Clostridium acetobutylicum ATCC 824	CLOAB	claceAA	Clostridiaceae	31979	Clostridiales	186802
+Conexibacter_woesei_DSM_14684_uid43467	469383	633	CONWI1156-150	Conexibacter woesei DSM 14684			Conexibacteraceae	320583	Solirubrobacterales	588673
+Corynebacterium_glutamicum_ATCC_13032_uid57905	196627	79	CORGL79-150	Corynebacterium glutamicum ATCC 13032	CORGL	cogluAA	Corynebacteriaceae	1653	Actinomycetales	2037
+Corynebacterium_glutamicum_ATCC_13032_uid61611	196627	79	CORGL79-150	Corynebacterium glutamicum ATCC 13032	CORGL	cogluAA	Corynebacteriaceae	1653	Actinomycetales	2037
+Delftia_acidovorans_SPH_1_uid58703	398578	337	DEIRA429-150	Delftia acidovorans SPH-1			Comamonadaceae	80864	Burkholderiales	80840
+Desulfovibrio_vulgaris_Hildenborough_uid57645	882	800	DESVH800-150	Desulfovibrio vulgaris Hildenborough	DESVH	devulAA	Desulfovibrionaceae	194924	Desulfovibrionales	213115
+Dyadobacter_fermentans_DSM_18053_uid59049	471854	626	DYAFD1148-150	Dyadobacter fermentans DSM 18053			Cytophagaceae	89373	Cytophagales	768507
+Escherichia_coli_K_12_substr__MG1655_uid57779	511145	1	ECOLI-150	Escherichia_coli_K_12_substr__MG1655_uid57779	ECOLI	escolAA	Enterobacteriaceae	543	Enterobacteriales	91347
+Flavobacterium_psychrophilum_JIP02_86_uid19979	402612	1034	FLAPJ1034-150	Flavobacterium psychrophilum JIP02_86	FLAPJ	flpsyAA	Flavobacteriaceae	49546	Flavobacteriales	200644
+Flavobacterium_psychrophilum_JIP02_86_uid61627	402612	1034	FLAPJ1034-150	Flavobacterium psychrophilum JIP02_86	FLAPJ	flpsyAA	Flavobacteriaceae	49546	Flavobacteriales	200644
+Francisella_tularensis_SCHU_S4_uid57589	177416	151	FRATT151-150	Francisella tularensis subsp. tularensis SCHU S4	FRATT	frtulAA	Francisellaceae	34064	Thiotrichales	72273
+Fusobacterium_nucleatum_ATCC_25586_uid57885	190304	162	FUSNN162-150	Fusobacterium nucleatum subsp. nucleatum ATCC 25586	FUSNN	funucAA	Fusobacteriaceae	203492	Fusobacteriales	203491
+Geodermatophilus_obscurus_DSM_43160_uid43725	526225	355	GEOOB516-150	Geodermatophilus obscurus DSM 43160			Geodermatophilaceae	85030	Actinomycetales	2037
+Haemophilus_influenzae_Rd_KW20_uid57771	71421	42	HAEIN42-150	Haemophilus influenzae Rd KW20	HAEIN	hainfAA	Pasteurellaceae	712	Pasteurellales	135625
+Halobacterium_NRC_1_uid57769	64091	247	HALSA247-150	Halobacterium sp. NRC-1	HALSA	hasalAA	Halobacteriaceae	2236	Halobacteriales	2235
+Haloterrigena_turkmenica_DSM_5511_uid43501	543526	636	HALTU1159-150	Haloterrigena turkmenica DSM 5511			Halobacteriaceae	2236	Halobacteriales	2235
+Helicobacter_pylori_26695_uid57787	85962	117	HELPY117-150	Helicobacter pylori 26695	HELPY	hepylAA	Helicobacteraceae	72293	Campylobacterales	213849
+Hyperthermus_butylicus_DSM_5456_uid57755	415426	249	HYPBU249-150	Hyperthermus butylicus DSM 5456	HYPBU	hybutAA	Pyrodictiaceae	2307	Desulfurococcales	114380
+Kytococcus_sedentarius_DSM_20547_uid59071	478801	627	KYTSD1149-150	Kytococcus sedentarius DSM 20547			Dermacoccaceae	145357	Actinomycetales	2037
+Lactobacillus_plantarum_WCFS1_uid62911	220668	528	LACPL528-150	Lactobacillus plantarum WCFS	LACPL	laplaAA	Lactobacillaceae	33958	Lactobacillales	186826
+Lactococcus_lactis_Il1403_uid57671	272623	780	LACLA780-150	Lactococcus lactis subsp lactis IL1403	LACLA	lalacAA	Streptococcaceae	1300	Lactobacillales	186826
+Leptospira_interrogans_serovar_Lai_56601_uid57881	189518	77	LEPIN77-150	Leptospira interrogans serovar lai 56601	LEPIN	leintAA	Leptospiraceae	170	Spirochaetales	136
+Listeria_monocytogenes_EGD_e_uid61583	169963	395	LISIN395-150	Listeria monocytogenes EGD-e	LISMO	limonAA	Listeriaceae	186820	Bacillales	1385
+Methanocaldococcus_jannaschii_DSM_2661_uid57713	243232	13	METJA13-150	Methanocaldococcus jannaschii DSM 2661	METJA	mejanAA	Methanocaldococcaceae	196117	Methanococcales	2182
+Methanopyrus_kandleri_AV19_uid57883	190192	257	METKA257-150	Methanopyrus kandleri AV19	METKA	mekanAA	Methanopyraceae	183713	Methanopyrales	68985
+Methanosarcina_acetivorans_C2A_uid57879	188937	235	METAC235-150	Methanosarcina acetivorans C2A	METAC	meaceAA	Methanosarcinaceae	2206	Methanosarcinales	94695
+Methanospirillum_hungatei_JF_1_uid58181	323259	260	METHJ260-150	Methanospirillum hungatei JF-1	METHJ	mehunAA	Methanospirillaceae	196137	Methanomicrobiales	2191
+Methanothermobacter_thermautotrophicus_Delta_H_uid57877	187420	12	METTH12-150	Methanothermobacter thermautotrophicus Delta H	METTH	metheAA	Methanobacteriaceae	2159	Methanobacteriales	2158
+Moorella_thermoacetica_ATCC_39073_uid58051	264732	546	MOOTA546-150	Moorella thermoacetica ATCC 39073	MOOTA	motheAA	Thermoanaerobacteraceae	186814	Thermoanaerobacterales	68295
+Mycobacterium_smegmatis_MC2_155_uid57701	246196	174	MYCPA174-150	Mycobacterium smegmatis MC2 155	MYCS2	mysmeAA	Mycobacteriaceae	1762	Actinomycetales	2037
+Mycobacterium_tuberculosis_H37Rv_uid57777	83332		MYCTU4-150	Mycobacterium tuberculosis H37Rv	MYCTU	mytubAA	Mycobacteriaceae	1762	Actinomycetales	2037
+Mycoplasma_pneumoniae_M129_uid57709	272634	19	MYCPN19-150	Mycoplasma pneumoniae M129	MYCPN	mypneAA	Mycoplasmataceae	2092	Mycoplasmatales	2085
+Neisseria_meningitidis_MC58_uid57817	122586	30	NEIMB30-150	Neisseria meningitidis MC58	NEIMB	nemenAA	Neisseriaceae	481	Neisseriales	206351
+Nitrosopumilus_maritimus_SCM1_uid58903	436308	1198	NITMA1198-150	Nitrosopumilus maritimus SCM1	NITMS	nimarAA	Nitrosopumilaceae	338190	Nitrosopumilales	31932
+Pedobacter_heparinus_DSM_2366_uid59111	485917	625	PEDHD1147-150	Pedobacter heparinus DSM 2366			Sphingobacteriaceae	84566	Sphingobacteriales	200666
+Pirellula_staleyi_DSM_6068_uid43209	530564	635	PIRSD1158-150	Pirellula staleyi DSM 6068			Planctomycetaceae	126	Planctomycetales	112
+Pseudomonas_aeruginosa_PAO1_uid57945	208964	26	PSEPA26-150	Pseudomonas aeruginosa PAO1	PSEAE	psaerAA	Pseudomonadaceae	135621	Pseudomonadales	72274
+Pseudomonas_putida_KT2440_uid57843	160488	48	PSEPK48-150	Pseudomonas putida KT2440	PSEPK	psputAA	Pseudomonadaceae	135621	Pseudomonadales	72274
+Pyrobaculum_aerophilum_IM2_uid57727	178306	264	PYRAE264-150	Pyrobaculum aerophilum IM2	PYRAE	pyaerAA	Thermoproteaceae	2267	Thermoproteales	2266
+Pyrococcus_furiosus_DSM_3638_uid57873	186497	91	PYRFU91-150	Pyrococcus furiosus DSM 3638	PYRFU	pyfurAA	Thermococcaceae	2259	Thermococcales	2258
+Rhodobacter_sphaeroides_2_4_1_uid57653	272943	258	RHIME324-150	Rhodobacter sphaeroides 2.4.1			Rhodobacteraceae	31989	Rhodobacterales	204455
+Rhodobacter_sphaeroides_2_4_1_uid57653	272943	324	RHIME324-150	Rhodobacter sphaeroides 2.4.1	RHOS4	rhsphAA	Rhodobacteraceae	31989	Rhodobacterales	204455
+Rhodospirillum_rubrum_ATCC_11170_uid57655	269796	323	RHOP2323-150	Rhodospirillum rubrum ATCC 11170	RHORT	rhrubAA	Rhodospirillaceae	41295	Rhodospirillales	204441
+Rickettsia_prowazekii_Madrid_E_uid61565	272947	22	RICPR22-150	Rickettsia prowazekii Madrid E	RICPR	riproAA	Rickettsiaceae	775	Rickettsiales	766
+Salmonella_enterica_serovar_Typhimurium_LT2_uid57799	99287	29	SALTY29-150	Salmonella typhimurium LT2	SALTY	saentAA	Enterobacteriaceae	543	Enterobacteriales	91347
+Shigella_dysenteriae_Sd197_uid58213	300267	141	SHISD141-150	Shigella dysenteriae Sd197	SHIDS	shdysAA	Enterobacteriaceae	543	Enterobacteriales	91347
+Stigmatella_aurantiaca_DW4_3_1_uid158509	378806	632	STIAD1155-150	Stigmatella aurantiaca DW4/3-1			Cystobacteraceae	39	Myxococcales	29
+Streptococcus_pneumoniae_R6_uid57859	171101	209	STRR6209-150	Streptococcus pneumoniae R6	STRR6	stpneAA	Streptococcaceae	1300	Lactobacillales	186826
+Streptomyces_coelicolor_A3_2__uid57801	100226	55	STRCO55-150	Streptomyces coelicolor A3(2)	STRCO	stcoeAA	Streptomycetaceae	2062	Actinomycetales	2037
+Sulfolobus_solfataricus_P2_uid57721	273057	11	SULSO11-150	Sulfolobus solfataricus P2	SULSO	susolAA	Sulfolobaceae	118883	Sulfolobales	2281
+Thermanaerovibrio_acidaminovorans_DSM_6589_uid41925	525903	1024	THEAS1024-150	Thermanaerovibrio acidaminovorans DSM 6589	THEAS	thacjAA	Synergistaceae	649777	Synergistales	649776
+Thermococcus_kodakarensis_KOD1_uid58225	69014	270	PYRKO270-150	Thermococcus kodakarensis KOD1	PYRKO	thkodAA	Thermococcaceae	2259	Thermococcales	2258
+Thermodesulfovibrio_yellowstonii_DSM_11347_uid59257	289376	421	THE11421-150	Thermodesulfovibrio yellowstonii DSM 11347	THEYD	thyelAA	Nitrospiraceae	189779	Nitrospirales	189778
+Thermofilum_pendens_Hrk_5_uid58563	368408	271	THEPD271-150	Thermofilum pendens Hrk 5	THEPD	thpenAA	Thermofilaceae	114378	Thermoproteales	2266
+Thermoplasma_acidophilum_DSM_1728_uid61573	273075	272	THEAC272-150	Thermoplasma acidophilum DSM 1728	THEAC	thaciAA	Thermoplasmataceae	46659	Thermoplasmatales	2301
+Thermotoga_maritima_MSB8_uid57723	243274	24	THEMA24-150	Thermotoga maritima MSB8	THEMA	thmarAA	Thermotogaceae	188709	Thermotogales	2419
+Thermus_thermophilus_HB8_uid58223	300852	762	THET8762-150	Thermus thermophilus HB8	THET8	ththeAA	Thermaceae	188786	Thermales	68933
+Vibrio_cholerae_O1_biovar_El_Tor_N16961_uid57623	243277	43	VIBCH43-150	Vibrio cholerae N16961	VIBCH	vichoAA	Vibrionaceae	641	Vibrionales	135623
+Vibrio_fischeri_ES114_uid58163	312309	198	VIBF1198-150	Vibrio fischeri ES114	VIBF1	alfisAA	Vibrionaceae	641	Vibrionales	135623
+Xylanimonas_cellulosilytica_DSM_15894_uid41935	446471	410	XYCED599-150	Xylanimonas cellulosilytica DSM 15894			Promicromonosporaceae	85017	Actinomycetales	2037
+Yersinia_pestis_CO92_uid57621	214092	3	YERPE3-150	Yersinia pestis CO92	YERPE	yepesAA	Enterobacteriaceae	543	Enterobacteriales	91347
