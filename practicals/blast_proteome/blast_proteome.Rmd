@@ -287,7 +287,12 @@ Note: if you are working on a machine that does not belong to the federation of 
 ## ATTENTION: DO NOT RUN THIS COMMAND IF YOU ARE ON THE NNCR CLUSTER,
 ## because this would occupy a big space to reinstall BLAST in your 
 ## own account, although it is already available for all users. 
+
+## Install blast
 conda create -n blast-2.7.1 blast==2.7.1
+
+## Install emboss
+conda create -n emboss-6.6.0 emboss==6.6.0
 ```
 
 
@@ -388,7 +393,9 @@ less lysC_vs_Ecoli.txt
 
 In this section, we will perform a quick empirical test, by submitting a random sequence to blastp. For this, we will shuffle the aminoacids of the original query sequence. 
 
-For this, you can use a convenient Web tool at <http://www.bioinformatics.org/sms2/shuffle_protein.html>
+## Shuffling sequences with a Web tool
+
+One way to shuffle sequences is to use a convenient Web tool at <http://www.bioinformatics.org/sms2/shuffle_protein.html>
 
 
 Here is an example of result (I just simplified the header of the shuffle output fasta sequence for the sake of readability). 
@@ -406,6 +413,29 @@ RHFLVGAKVRIQERKASTSFRRLLAGRTETYRGLEIYAPCISMTTAVRRMQAGGIAHREI
 QETIACRKSTELLSTIASPHAEVGFEAANGTLLGVLTADHVSMALQAVNGGESLPDEHRR
 TVGDILTERVARLLLPFKEGPARTSSTLA
 ```
+
+## Shuffling sequences with EMBOSS shuffleseq
+
+```{bash eval=FALSE}
+## Activate the conda environment with the emboss software suite
+source  $CONDA_HOME/bin/activate emboss-6.6.0
+
+## Check that shuffleseq is available
+which shuffleseq
+
+## Get the suffle manual 
+shuffleseq -h
+
+## Shuffle the apartokinase 3 sequence
+shuffleseq -sequence P08660.fasta -outseq shuffled_lysC.fa
+
+## Check the result
+cat shuffled_lysC.fa
+
+## Compare the shuffled seq with the original one
+cat P08660.fasta
+```
+
 
 ## Exercise
 

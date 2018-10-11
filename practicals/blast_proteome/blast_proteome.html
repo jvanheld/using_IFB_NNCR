@@ -517,7 +517,12 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## </span><span class="al">ATTENTION</span><span class="co">: DO NOT RUN THIS COMMAND IF YOU ARE ON THE NNCR CLUSTER,</span>
 <span class="co">## because this would occupy a big space to reinstall BLAST in your </span>
 <span class="co">## own account, although it is already available for all users. </span>
-<span class="ex">conda</span> create -n blast-2.7.1 blast==2.7.1</code></pre></div>
+
+<span class="co">## Install blast</span>
+<span class="ex">conda</span> create -n blast-2.7.1 blast==2.7.1
+
+<span class="co">## Install emboss</span>
+<span class="ex">conda</span> create -n emboss-6.6.0 emboss==6.6.0</code></pre></div>
 </div>
 <div id="formatting-the-blast-database-for-the-reference-genome" class="section level2">
 <h2>Formatting the blast database for the reference genome</h2>
@@ -578,8 +583,70 @@ Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.psq</code></pre>
 </div>
 </div>
 </div>
-<div id="comparing-all-the-proteins-of-a-genome-against-another-one" class="section level1">
-<h1>Comparing all the proteins of a genome against another one</h1>
+<div id="negative-control-blast-against-a-shuffled-sequence" class="section level1">
+<h1>Negative control: blast against a shuffled sequence</h1>
+<p>In this section, we will perform a quick empirical test, by submitting a random sequence to blastp. For this, we will shuffle the aminoacids of the original query sequence.</p>
+<div id="shuffling-sequences-with-a-web-tool" class="section level2">
+<h2>Shuffling sequences with a Web tool</h2>
+<p>One way to shuffle sequences is to use a convenient Web tool at <a href="http://www.bioinformatics.org/sms2/shuffle_protein.html" class="uri">http://www.bioinformatics.org/sms2/shuffle_protein.html</a></p>
+<p>Here is an example of result (I just simplified the header of the shuffle output fasta sequence for the sake of readability).</p>
+<p>Of course, your result should differ since each shuffling produces a randomized sequence.</p>
+<pre><code>&gt;shuffled_lysC
+VEAINNAVKRELSALGDVADLFVLEFDNDRLGWADAIIRVLLNTEMNGELKPAEVASAIV
+GLIDEPELDTLVYSPLAGIFFLMCLIDFRGLGRREPTVPHSIMAGSGNALCRYFVTGLLL
+LDTNAFAIRETKNLEAFVAEFQAADNFAQARNPANLPKLILCLSVNGVLQASPFFNLNEG
+ADVVSESSAASLKADEDQSVITLEEDIVVTEGASSFDLALGLLMHLNVDRKVGAEWLEDE
+VSPVMVEVLTLVLTQEALTVTSIALLRGDTRKRVGLVLNSFTSHDLIAPSLILIGTSLVT
+RHFLVGAKVRIQERKASTSFRRLLAGRTETYRGLEIYAPCISMTTAVRRMQAGGIAHREI
+QETIACRKSTELLSTIASPHAEVGFEAANGTLLGVLTADHVSMALQAVNGGESLPDEHRR
+TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
+</div>
+<div id="shuffling-sequences-with-emboss-shuffleseq" class="section level2">
+<h2>Shuffling sequences with EMBOSS shuffleseq</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Activate the conda environment with the emboss software suite</span>
+<span class="bu">source</span>  <span class="va">$CONDA_HOME</span>/bin/activate emboss-6.6.0
+
+<span class="co">## Check that shuffleseq is available</span>
+<span class="fu">which</span> shuffleseq
+
+<span class="co">## Get the suffle manual </span>
+<span class="ex">shuffleseq</span> -h
+
+<span class="co">## Shuffle the apartokinase 3 sequence</span>
+<span class="ex">shuffleseq</span> -sequence P08660.fasta -outseq shuffled_lysC.fa
+
+<span class="co">## Check the result</span>
+<span class="fu">cat</span> shuffled_lysC.fa
+
+<span class="co">## Compare the shuffled seq with the original one</span>
+<span class="fu">cat</span> P08660.fasta</code></pre></div>
+</div>
+<div id="exercise" class="section level2">
+<h2>Exercise</h2>
+<ol style="list-style-type: decimal">
+<li><p>Shuffle the aspartokinase 3 sequence with the web tool <a href="http://www.bioinformatics.org/sms2/shuffle_protein.html" class="uri">http://www.bioinformatics.org/sms2/shuffle_protein.html</a>.</p></li>
+<li><p>Copy the result and save it in a local file.</p>
+<p><strong>Tip</strong> to edit a file this you can use the command <code>nano</code>.</p>
+<ul>
+<li>Type the command <code>nano shuffled_lysC.fa</code></li>
+<li>paste the shuffled sequence</li>
+<li>type Ctrl-X and answer “Y” to save the result</li>
+</ul></li>
+<li><p>Run a <code>blastp</code> search with this shuffled sequence against all proteins of <em>Escherichia coli</em>.</p></li>
+</ol>
+<div id="questions-1" class="section level3">
+<h3>Questions</h3>
+<ol style="list-style-type: decimal">
+<li>How many alignments would you expect by chance with the default blastp parameters?</li>
+<li>How many alignemnts did you get with the shuffled sequence?</li>
+<li>How many of these had an E-value smaller than 1?</li>
+<li>How many of these had an E-value smaller than 0.01?</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="comparing-all-the-proteins-of-a-genome-against-another-genome" class="section level1">
+<h1>Comparing all the proteins of a genome against another genome</h1>
 <div id="downloading-a-query-genome" class="section level2">
 <h2>Downloading a query genome</h2>
 <ol style="list-style-type: decimal">
