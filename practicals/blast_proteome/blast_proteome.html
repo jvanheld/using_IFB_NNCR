@@ -585,6 +585,14 @@ Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa.psq</code></pre>
 <div id="getting-a-tabular-synthesis-of-blast-results" class="section level2">
 <h2>Getting a tabular synthesis of blast results</h2>
 <p>By default, BLAST displays the detailed results of a similaty search, starting with a summary of the matches, followed by all the alignemnts. It can be convenient to generate a synthetic result indicating only the relevant statistics for each alignment. This can be done by tuning BLAST options.</p>
+<p>Read blastp manual and find a way to tune the formatting options in order to get a tabular output with comments.</p>
+<div id="solution-2" class="section level3">
+<h3>Solution</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">blastp</span> -outfmt 7 \
+  -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
+  -query P08660.fasta \
+  <span class="op">&gt;</span> lysC_vs_Ecoli_synthesis.tsv</code></pre></div>
+</div>
 </div>
 </div>
 <div id="negative-control-blast-against-a-shuffled-sequence" class="section level1">
@@ -628,24 +636,7 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 <div id="exercise" class="section level2">
 <h2>Exercise</h2>
 <ol style="list-style-type: decimal">
-<li><p>Shuffle the aspartokinase 3 sequence with the web tool <a href="http://www.bioinformatics.org/sms2/shuffle_protein.html" class="uri">http://www.bioinformatics.org/sms2/shuffle_protein.html</a>.</p></li>
-<li><p>Copy the result and save it in a local file.</p>
-<p><strong>Tip</strong> a simple way to copy some text in a file is to use the system command <code>cat</code></p>
-<ul>
-<li>in the terminal, type <code>cat &gt; shuffled_lysC.fa</code>. This opens the cat command in interactive mode: the program is expecting for you to type some content.</li>
-<li>paste the shuffled sequence</li>
-<li>type “Ctrl-D” to quit the interactive cat</li>
-<li><p>check the content of the file by typing</p>
-<p><code>cat shuffled_lysC.fa</code></p></li>
-</ul>
-<p><strong>Alternative</strong> you can use a text editor like <code>nano</code>.</p>
-<ul>
-<li>Type the command <code>nano shuffled_lysC.fa</code></li>
-<li>paste the shuffled sequence</li>
-<li>type Ctrl-X and answer “Y” to save the result</li>
-<li><p>check the content of the file by typing</p>
-<p><code>cat shuffled_lysC.fa</code></p></li>
-</ul></li>
+<li><p>Shuffle the aspartokinase 3 sequence with the tool <code>shuffleseq</code> (found in the conda environment <code>emboss</code>).</p></li>
 <li><p>Run a <code>blastp</code> search with this shuffled sequence against all proteins of <em>Escherichia coli</em>.</p></li>
 </ol>
 <div id="questions-1" class="section level3">
@@ -668,7 +659,7 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 <li><p>In EnsemblGenomes Download page, find the genome of <em>Bacillus subtilis subsp. subtilis str. 168</em>.</p></li>
 <li><p>Download the genome annotation (GTF file) and protein sequences (fasta file).</p></li>
 </ol>
-<div id="solution-2" class="section level3">
+<div id="solution-3" class="section level3">
 <h3>Solution</h3>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Download genome annotations for query organism</span>
 <span class="fu">wget</span> --no-clobber ftp://ftp.ensemblgenomes.org/pub/release-41/bacteria//gtf/bacteria_0_collection/bacillus_subtilis_subsp_subtilis_str_168/Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.41.gtf.gz

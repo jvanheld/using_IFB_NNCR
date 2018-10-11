@@ -395,6 +395,19 @@ less lysC_vs_Ecoli.txt
 
 By default, BLAST displays the detailed results of a similaty search, starting with a summary of the matches, followed by all the alignemnts. It can be convenient to generate a synthetic result indicating only the relevant statistics for each alignment. This can be done by tuning  BLAST options. 
 
+Read blastp manual and find a way to tune the formatting options in order to get a tabular output with comments. 
+
+### Solution
+
+```{bash eval=FALSE}
+blastp -outfmt 7 \
+  -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
+  -query P08660.fasta \
+  > lysC_vs_Ecoli_synthesis.tsv
+
+```
+
+
 
 # Negative control: blast against a shuffled sequence
 
@@ -446,29 +459,9 @@ cat P08660.fasta
 
 ## Exercise
 
-1. Shuffle the aspartokinase 3 sequence with the web tool <http://www.bioinformatics.org/sms2/shuffle_protein.html>.
+1. Shuffle the aspartokinase 3 sequence with the tool `shuffleseq` (found in the conda environment `emboss`). 
 
-2. Copy the result and save it in a local file.
-
-    **Tip** a simple way to copy some text in a file is to use the system command `cat`
-
-    - in the terminal, type `cat > shuffled_lysC.fa`. This opens the cat command in interactive mode: the program is expecting for you to type some content. 
-    - paste the shuffled sequence
-    - type "Ctrl-D" to quit the interactive cat
-    - check the content of the file by typing 
-    
-        `cat shuffled_lysC.fa`
-
-    **Alternative** you can use a text editor like `nano`. 
-    
-    - Type the command `nano shuffled_lysC.fa`
-    - paste the shuffled sequence
-    - type Ctrl-X and answer "Y" to save the result
-    - check the content of the file by typing 
-    
-        `cat shuffled_lysC.fa`
-
-3. Run a `blastp` search with this shuffled sequence against all proteins of *Escherichia coli*. 
+2. Run a `blastp` search with this shuffled sequence against all proteins of *Escherichia coli*. 
 
 ```{bash eval=FALSE, echo=FALSE}
 ## Run blast with the shuffled lysC sequence against all E.coli proteins
