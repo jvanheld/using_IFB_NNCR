@@ -463,12 +463,19 @@ cat P08660.fasta
 
 2. Run a `blastp` search with this shuffled sequence against all proteins of *Escherichia coli*. 
 
-```{bash eval=FALSE, echo=FALSE}
+### Solution
+
+```{bash eval=FALSE}
 ## Run blast with the shuffled lysC sequence against all E.coli proteins
 blastp \
   -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
   -query shuffled_lysC.fa \
   > shuffled_lysC_vs_Ecoli.txt
+
+blastp -outfmt 7 \
+  -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
+  -query shuffled_lysC.fa \
+  > shuffled_lysC_vs_Ecoli_synthesis.tsv
 
 ## Check the result
 less shuffled_lysC_vs_Ecoli.txt
