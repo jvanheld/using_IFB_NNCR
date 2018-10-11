@@ -386,6 +386,8 @@ less lysC_vs_Ecoli.txt
 3. What was the threshold on the E-value for this blastp search?
 4. With this threshold, how many hits would we expeect if we use a random sequence as query?
 5. How many alignments would you consider significant in this result?
+6. How many of these would you qualify of homologs?
+7. For each of these putative homologs, is it a paralog, ortholog or "other log" ?
 </font>
 
 
@@ -470,6 +472,7 @@ less shuffled_lysC_vs_Ecoli.txt
 2. How many alignemnts did you get with the shuffled sequence?
 3. How many of these had an E-value smaller than 1?
 4. How many of these had an E-value smaller than 0.01?
+5. How many of these would you qualify of homologs?
 
 
 # Comparing all the proteins of a genome against another genome
