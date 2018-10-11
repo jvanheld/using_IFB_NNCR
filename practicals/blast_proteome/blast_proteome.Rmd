@@ -481,7 +481,7 @@ blastp -outfmt 7 \
   > shuffled_lysC_vs_Ecoli_synthesis.tsv
 
 ## Check the result
-less shuffled_lysC_vs_Ecoli.txt
+less shuffled_lysC_vs_Ecoli_synthesis.tsv
 ```
 
 
