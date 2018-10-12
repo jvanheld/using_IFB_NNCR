@@ -268,7 +268,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Using BLAST on the command line</h1>
 <h4 class="author"><em>Jacques van Helden</em></h4>
-<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-11</em></h4>
+<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-12</em></h4>
 
 </div>
 
@@ -737,8 +737,25 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 <div id="all-proteins-from-e.-coli-versus-e.-coli" class="section level2">
 <h2>All proteins from E. coli versus E. coli</h2>
 <p><strong>Exercise: </strong> build a command that compares the sequences of all the E.coli proteins against each other, and store the results in a tab-delimited file with a single line per hit (we do not need the alignments).</p>
-<hr />
 </div>
+</div>
+<div id="devoir-maison" class="section level1">
+<h1>Devoir-maison</h1>
+<ol style="list-style-type: decimal">
+<li><p>Faire tourner blast pour toutes les protéines de votre organisme d’intérêt contre toutes celles de E.coli.</p></li>
+<li><p>Sélectionner (<code>awk</code>) les hits avec une E-valeur inférieure à 0.00001 (= 1e-5). Ci-dessous (et dans votre rapport) nous désignerons ceux-ci comme <em>“homologues prédits”</em> ou plus simplement <em>“homologues”</em>.</p></li>
+<li><p>Compter le nombre d’homologues prédits par protéine (<code>uniq -c</code>).</p></li>
+<li><p>Calculer le nombre de protéines sans homologue prédit.</p></li>
+<li><p>Calculer la distribution du number d’homologues par protéine (combien de protéines ont 0, 1, 2, 3, … homologues).</p></li>
+<li><p>Sélectionner le meilleur hit (Best Hit, BH) pour chaque protéine. Par <em>Best hit</em> on entend l’alignement avec la E-valeur la plus faible. Comme il peut y avoir des ambiguités liées à l’arrondu des E-valeurs inférieures à la limite de précision de calcul de BLAST (~1e-180), on utilisera plutôt le score en bits comme critère de BBH.</p></li>
+<li><p>Faire tourner blast pour toutes les protéines de <em>E.coli</em> contre votre organisme d’intérêt, et réaliser les mêmes analyses des résultats.</p></li>
+<li><p>Identifiez dans les deux comparaisons (votre organisme vs <em>E.coli</em> et <em>E.coli</em> vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d’établir les relations d’orthologie et de paralogie.</p></li>
+</ol>
+<p><strong>Question bonus (si vous y arrivez)</strong></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Identifier les Bidirectional Best Hits (BBH).</li>
+</ol>
+<hr />
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>

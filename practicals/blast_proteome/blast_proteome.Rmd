@@ -577,6 +577,30 @@ grep -v '^#' Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv > Bacill
 **Exercise: ** build a command that compares the sequences of all the E.coli proteins against each other, and store the results in a tab-delimited file with a single line per hit (we do not need the alignments).   
 
 
+# Devoir-maison
+
+
+1. Faire tourner blast pour toutes les protéines de votre organisme d'intérêt contre toutes celles de E.coli. 
+
+2. Sélectionner (`awk`) les hits avec une E-valeur inférieure à 0.00001 (= 1e-5). Ci-dessous (et dans votre rapport) nous désignerons ceux-ci comme *"homologues prédits"* ou plus simplement *"homologues"*. 
+
+3. Compter le nombre d'homologues prédits par protéine (`uniq -c`). 
+
+4. Calculer le nombre de protéines sans homologue prédit.
+
+5. Calculer la distribution du number d'homologues par protéine (combien de protéines ont 0, 1, 2, 3, ... homologues).
+
+6. Sélectionner le meilleur hit (Best Hit, BH) pour chaque protéine. Par *Best hit* on entend l'alignement avec la E-valeur la plus faible. Comme il peut y avoir des ambiguités liées à l'arrondu des E-valeurs inférieures à la limite de précision de calcul de BLAST (~1e-180), on utilisera plutôt le score en bits comme critère de BBH. 
+
+7. Faire tourner blast pour toutes les protéines de *E.coli* contre votre organisme d'intérêt, et réaliser les mêmes analyses des résultats.
+
+8. Identifiez dans les deux comparaisons (votre organisme vs *E.coli* et *E.coli* vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d'établir les relations d'orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant "P", "O", ou "I" pour paralogie, orthologie ou identité, respectivement. 
+
+**Question bonus (si vous y arrivez)**
+
+6. Identifier les Bidirectional Best Hits (BBH). 
+
+
 
 
 ****************************************************************
