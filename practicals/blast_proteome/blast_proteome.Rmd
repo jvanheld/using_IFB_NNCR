@@ -550,6 +550,8 @@ blastp -outfmt 7\
 ## All proteins of *B.subtilis* against all proteins of *E. coli*
 
 
+### Proteome-wise similarity search
+
 1. Write a command that searches for similarities for all proteins of your proteome of interest against all proteins of *E. coli*, and prints the output in tab-delimited format with comment lines. Save the output in a file named `[your_organism]__vs__Escherichia_coli_blastp_outfmt7.tsv` (relpace `[your_organism]` by the actual name of the organism you selected for this tutorial).
 
 2. Use `grep` to select the non-comment lines and store them in a separate file named `[your_organism]__vs__Escherichia_coli_blastp_table.tsv`.
@@ -572,6 +574,8 @@ wc -l Bacillus_subtilis__vs__Escherichia_coli_blastp_table.tsv
 
 This search was realized with the default threshold on the E-value. The results is thus likely to includes *a lot of false positives*, since the default E-value for blastp is 10 ! For proteome-wise searches, one generally uses  much more stringent threshold in order to only report highly significant matches. 
 
+### Selecting significant hits
+
 4. Run blast with a threshold of $10^{-5}$ on the E-value and store the result in a separate file, in tabular format and *without comments*. 
 
     **Note**: we now discard the commands because this file will further be used to sort the hits by E-value.  
@@ -587,6 +591,7 @@ time blastp -outfmt 6 -evalue 0.00001 \
 wc -l Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv
 ```
 
+### Sorting hits by significance
 
 5. We will now try to sort the hits by increasing E-value, in order to display the most significant hits n first place. For this, the simplest solution seems to use `sort` and specify a numeric sorting  (option `-n`) on the numeric value of the $11^{th}$ column (option `-k 11`), which contains the E-value. More precisely, we will specify `-k 11,11` to sort on this column only, because the option `-k 11` would use the $11^{th}$  and all the subsequent columns as sorting keys. Let us look at the result. 
 
@@ -641,6 +646,8 @@ awk '{sig= -log($11) / log(10); print $0"\t" sig}' \
   | less 
 ```
 
+### Sorting hits by significance + bit score
+
 6. Adapt the above command to sort on a double key: 
 
     - Primary key: decreasing significance (as computed above) 
@@ -648,18 +655,83 @@ awk '{sig= -log($11) / log(10); print $0"\t" sig}' \
 
 Store the result in a file named  `[your_organism]__vs__Escherichia_coli_blastp_sorted.tsv `
 
-### Solution
+#### Solution
 
 ```{bash eval=FALSE}
+## Define an environment variable with the name of the sorted hits (this will be useful for further processing)
+BLAST_HITS_SORTED=Bacillus_subtilis__vs__Escherichia_coli_blastp_sorted.tsv
+
 ## Sort BLAST hits by decreasing significance and decreasing bit score
 awk '{sig= -log($11) / log(10); print $0"\t" sig}' \
   Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv \
   | awk '{ sub("inf", "200"); print }' \
   | sort -k 13,13 -k 12,12 -n -r \
-  > Bacillus_subtilis__vs__Escherichia_coli_blastp_sorted.tsv
+  > ${BLAST_HITS_SORTED}
   
 ## Check the result
-less Bacillus_subtilis__vs__Escherichia_coli_blastp_sorted.tsv
+less ${BLAST_HITS_SORTED}
+
+```
+
+### Computing blast hit ranks
+
+7. Starting from the sorted blast hits, compute 
+
+    - a rank of the hits according to the query protein (`qrank`),
+    - another rank according to the "subject" protein (`srank`), i.e. the protein found in the blast database of your reference organism. 
+
+**Definition**: by ***Best hit*** we mean the most significant alignment, i.e. the alignment with the smallest E-value. In case of identical E-values, the bit score is used as secondary ranking criterion, as we did above. 
+
+**Tip**: `awk` enables to compute ranks by incrementing a counter at each occurrence of a given value (e.g. a protein identifier) in a given column (e.g. the first column, which contains query protein IDs). 
+
+The following command adds a column to the sorted blast hits, indicating the occurrence number of each value of the first column. Since our file is sorted by E-value, this corresponds to the rank of the hits according to the query sequences (we therefore name the variable `qrank`). 
+
+```{bash eval=FALSE, echo=TRUE}
+awk '{ qrank[$1]++ ; print $0"\t"qrank[$1]}'  ${BLAST_HITS_SORTED} | less
+```
+
+We can now complete this command by computing a second variable  which indicates the rank of each hit according to the "subject"" sequence (`srank`), i.e. the sequence of the blast database. 
+
+
+```{bash eval=FALSE, echo=TRUE}
+BLAST_HITS_RANKED=Bacillus_subtilis__vs__Escherichia_coli_blastp_ranks.tsv
+awk '{ qrank[$1]++ ; srank[$2]++ ; print $0"\t"qrank[$1]"\t"srank[$2]}' \
+  ${BLAST_HITS_SORTED} > ${BLAST_HITS_RANKED}
+  
+## Check the result
+less ${BLAST_HITS_RANKED}
+```
+
+With less, you can browse the content by pressing the space bar in order to see the next "page". In the beginning of the file, most ranks are 1 in the two last columns, because the very low E-values generally correspond to the bidirectional best hit. As you go down, you will notice some hits with larger rank values for the `srank` and `qrank` columns, indicating that the query or subject sequences have multiple hits. 
+
+### Finding best hits
+
+8. With the ranked blast hits, use the `awk` command to select: 
+
+    - the best hit for each protein of the query organism (query BH);
+    - the best hit for each protein of the reference organism (subject BH);
+    - the bidirectional best hit (BBH)
+
+Save each result in a separate file, and count the number of hits in each file.
+
+#### Solution
+
+```{bash eval=FALSE}
+
+## Best hits per query sequence
+BLAST_QUERY_BH=Bacillus_subtilis__vs__Escherichia_coli_blastp_query_BH.tsv
+awk '$14 == 1' ${BLAST_HITS_RANKED} > ${BLAST_QUERY_BH}
+
+## Best hits per subject sequence
+BLAST_SUBJECT_BH=Bacillus_subtilis__vs__Escherichia_coli_blastp_subject_BH.tsv
+awk '$15 == 1' ${BLAST_HITS_RANKED} > ${BLAST_SUBJECT_BH}
+
+## Bidirectional best hits
+BLAST_BBH=Bacillus_subtilis__vs__Escherichia_coli_blastp_BBH.tsv
+awk '$14 == 1 && $15 == 1' ${BLAST_HITS_RANKED} > ${BLAST_BBH}
+
+## Count number of best hits
+wc -l  ${BLAST_QUERY_BH} ${BLAST_SUBJECT_BH} ${BLAST_BBH}
 ```
 
 
@@ -686,33 +758,33 @@ less Bacillus_subtilis__vs__Escherichia_coli_blastp_sorted.tsv
 
 ## Questions
 
-1. Faites tourner blast pour toutes les protéines de votre organisme d'intérêt contre toutes celles de E.coli, en sélectionnant un fichier de sortie tabulaire sans commentaires, et un seuil de $10^{-5}$ sur la E-valeur. 
+1. Faites tourner blast pour toutes les protéines de votre organisme d'intérêt contre toutes celles de E.coli, en sélectionnant un fichier de sortie tabulaire sans commentaires, et un seuil de $10^{-5}$ sur la E-valeur. Triez les hits par signiticativité (clé primaire) et par bit score (clé secondaire), puis calculez les rangs des hits en fonction des séquences "query" et "subject" comme nous l'avons fait dans le tutoriel.
 
-
-3. Compter 
+3. Comptez
 
     - le nombre total de hits
     - le nombre total de paires de protéines avec un hit
     - le nombre de protéines de votre ortanisme d'intérêt ayant au moins un hit chez *E.coli*
     - le nombre de protéines d'*E.coli* pour lesquelles au moins un hit a été trouvé à partir de votre organisme d'intérêt
+    - le nombre de best hits pour l'organisme d'intérêt
+    - le nombre de best hits pour l'organisme de référence (*E.coli*)
+    - le nombre de best hits bidirectionnels
     
-4. Générez un fichier qui indique  le nombre d'homologues prédits par protéine de l'organisme d'intérêt. Ce fichier contiendra une ligne par protéine, et deux colonnes, indiquant respectivement le nombre de hits et l'ID de la protéine (`uniq -c`). Triez les résultats par nombre décroissant de hits.
+4. Générez un fichier qui indique le nombre d'homologues prédits par protéine de l'organisme d'intérêt. Ce fichier contiendra une ligne par protéine, et deux colonnes, indiquant respectivement le nombre de hits et l'ID de la protéine (`uniq -c`). Triez les résultats par nombre décroissant de hits (les protéines ayant le plus grand nombre de hits s'affichent en premier lieu). Afficher les 10 premières lignes du fichier. 
 
-7. Calculer le nombre de protéines de l'organisme d'intérêt sans homologue prédit.
+***Question d'interprétation*** : Utilisez Uniprot pour savoir quelle est la fonction biologique des protéines présentant un très grand nombre de hits. Cette fonction permet-elle de comprendre ce nombre excessif de hits ?
 
-8. Calculer la distribution du number d'homologues par protéine (combien de protéines ont 0, 1, 2, 3, ... homologues).
+7. Calculez le nombre de protéines de l'organisme d'intérêt sans homologue prédit. 
 
-9. Calculez le rang de chaque hit par rapport à la protéine "query" (organisme d'intérêt), et par rapport à la protéine "subject" (organisme de référence, *E.coli*). 
+***Question d'interprétation*** : Comment interprétéz-vous ces protéines sans hit ?  
 
-    - Par *Best hit* on entend l'alignement avec la E-valeur la plus faible. EN cas d'ambiguité liée à l'arrondi des E-valeurs (par exemple si une protéine présente plusieurs hits avec une E-valeur arrondie à 0) on peut utiliser le score en bits comme critère secondaire de tri. 
-    
-    - Une façon de procéder est d'utiliser `awk` en définissant un compteur qui est incrémenté à chaque occurrence de l'ID query (1ère colonne). Voici une façon d'imprimer à la fois le rang des hits pour chaque protéine de l'organisme d'intérêt (qrank)^[Note: pour une raison que je ne comprends pas cette syntaxe commence le comptage à 2, je soustrais donc 1 au moment d'imprimer].
-    
-```{bash eval=FALSE, echo=TRUE}
-cat ${BLAST_HITS} | awk 'qrank[$1]++ {print qrank[$1]-1"\t"$0}'
-```
+8. Calculer la distribution du nombre d'homologues par protéine (combien de protéines ont 0, 1, 2, 3, ... homologues).
 
-12. Identifiez dans les deux comparaisons (votre organisme vs *E.coli* et *E.coli* vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d'établir les relations d'orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant "P", "O", ou "I" pour paralogie, orthologie ou identité, respectivement. 
+***Question d'interprétation*** : quel est le nombre moyen de hits ? Combien de protéines ont un seul hit ? Comment interpréteriez-vous ces deux nombres en termes évolutifs ?
+
+12. Identifiez dans les deux comparaisons (votre organisme vs *E.coli* et *E.coli* vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d'établir les relations d'orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant "P", "O", ou "I" pour paralogie, orthologie ou identité, respectivement.
+
+***Question d'interprétation*** : comment interprétez-vous ces résultats en terme de voies métaboliques ? N'hésitez pas à constuler des ressources complémentaires (KEGG, MetaCyc, ...). 
 
 
 ### Question bonus pour les acharnés
