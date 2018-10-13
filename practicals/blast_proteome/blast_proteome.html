@@ -268,7 +268,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Using BLAST on the command line</h1>
 <h4 class="author"><em>Jacques van Helden</em></h4>
-<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-12</em></h4>
+<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-13</em></h4>
 
 </div>
 
@@ -717,21 +717,86 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 <div id="all-proteins-of-b.subtilis-against-all-proteins-of-e.-coli" class="section level2">
 <h2>All proteins of <em>B.subtilis</em> against all proteins of <em>E. coli</em></h2>
 <ol style="list-style-type: decimal">
-<li><p>Write a command that searches for similarities for all proteins of your proteome of interest against all proteins of <em>E. coli</em>, and prints the output in tab-delimited format with comment lines. Save the output in a file name [your_organism]__vs__Escherichia_coli_blastp_outfmt7.tsv</p></li>
-<li><p>Use <code>grep</code> to select the non-comment lines and store them in a separate file</p></li>
+<li><p>Write a command that searches for similarities for all proteins of your proteome of interest against all proteins of <em>E. coli</em>, and prints the output in tab-delimited format with comment lines. Save the output in a file named <code>[your_organism]__vs__Escherichia_coli_blastp_outfmt7.tsv</code> (relpace <code>[your_organism]</code> by the actual name of the organism you selected for this tutorial).</p></li>
+<li><p>Use <code>grep</code> to select the non-comment lines and store them in a separate file named <code>[your_organism]__vs__Escherichia_coli_blastp_table.tsv</code>.</p></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Note : we prepend the command &quot;time&quot; to measure the computation time, just for the sake of curiosity</span>
 <span class="bu">time</span> blastp -outfmt 7 \
   -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
   -query Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
   <span class="op">&gt;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv
-  
-<span class="fu">grep</span> -v <span class="st">&#39;^#&#39;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv <span class="op">&gt;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_table.tsv  </code></pre></div>
-<div id="questions-2" class="section level3">
-<h3>Questions</h3>
-<ol style="list-style-type: decimal">
-<li></li>
+
+<span class="co">## Create a separate file without comments</span>
+<span class="fu">grep</span> -v <span class="st">&#39;^#&#39;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_outfmt7.tsv <span class="op">&gt;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_table.tsv  
+
+<span class="co">## Count the number of hits</span>
+<span class="fu">wc</span> -l Bacillus_subtilis__vs__Escherichia_coli_blastp_table.tsv  </code></pre></div>
+<p>This search was realized with the default threshold on the E-value. The results is thus likely to includes <em>a lot of false positives</em>, since the default E-value for blastp is 10 ! For proteome-wise searches, one generally uses much more stringent threshold in order to only report highly significant matches.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Run blast with a threshold of <span class="math inline">\(10^{-5}\)</span> on the E-value and store the result in a separate file, in tabular format and <em>without comments</em>.</p>
+<p><strong>Note</strong>: we now discard the commands because this file will further be used to sort the hits by E-value.</p></li>
 </ol>
+<pre class="blast"><code>## Note : we prepend the command &quot;time&quot; to measure the computation time, just for the sake of curiosity
+time blastp -outfmt 6 -evalue 0.00001 \
+  -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
+  -query Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
+  &gt; Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv
+
+## Count the number of hits
+wc -l Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>We will now try to sort the hits by increasing E-value, in order to display the most significant hits n first place. For this, the simplest solution seems to use <code>sort</code> and specify a numeric sorting (option <code>-n</code>) on the numeric value of the <span class="math inline">\(11^{th}\)</span> column (option <code>-k 11</code>), which contains the E-value. More precisely, we will specify <code>-k 11,11</code> to sort on this column only, because the option <code>-k 11</code> would use the <span class="math inline">\(11^{th}\)</span> and all the subsequent columns as sorting keys. Let us look at the result.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## A first attempt to sort by E-value, not very convincint !</span>
+<span class="fu">sort</span> -k 11,11 -n Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">less</span> </code></pre></div>
+<p>Go down by a few pages by pressing the space bar, and pay a particular attention to the 11th column, which contains the E-value. Is the sorting correct ?</p>
+<pre><code>**Note: after hacing seen the result, type &quot;q&quot;** to quit `less`.</code></pre>
+<p>The first rows contain hits with an E-value of 0. This does not properly speaking correspond to a null risk of false posiives, since there is a very small but non-null probability to observe a hit by chance, even if two proteins are very similar to each other. For blast, a <span class="math inline">\(0\)</span> value in the <span class="math inline">\(11^{th}\)</span> column indicates that the E-value is below the precision limit of computation, which is approximately <span class="math inline">\(1e-182\)</span>. <em>E-values of 0 should thus be interpreted as “smaller than <span class="math inline">\(10^{-182}\)</span>”.</em></p>
+<p>At the transition between 0 E-values and non-zero E-values, you will notice that the sorting is incorrect. Here is the result we obtain with <em>Bacillus subtilis</em>.</p>
+<pre><code>...
+CAB16047        AAC73707        56.673  517     ...   517     0.0     585
+CAB16048        AAC75939        65.828  477     ...   479     0.0     676
+CAB16138        AAC76764        52.564  624     ...   629     0.0     635
+CAB11917        AAC76323        56.034  116     ...   116     1.00e-47        146
+CAB12080        AAC76505        28.638  213     ...   229     1.00e-21        87.8
+CAB12153        AAC73552        26.360  239     ...   564     1.00e-12        64.3
+CAB12183        AAC73788        34.934  229     ...   223     1.00e-36        125
+CAB12414        AAC74372        26.061  165     ...   195     1.00e-07        50.4
+CAB12414        AAC76505        24.895  237     ...   223     1.00e-13        68.9
+CAB12437        AAC74386        29.075  227     ...   220     1.00e-13        65.1
+CAB12735        AAC76480        22.707  229     ...   242     1.00e-13        65.5
+...</code></pre>
+<p>Why are the E-values not sorted correctly? Apparently, the Unix <code>sort</code> command does not support the scientific notation, and thus mis-handles numbers like 1.00e-36 or 1.00e-12.</p>
+<p>To solve this, people use different tricks. Mine is to use <code>awk</code> in order to add a column with a significance score, which I define as the minus log of the E-value.</p>
+<p><span class="math display">\[sig = -log_{10}(\text{Evalue})\]</span></p>
+<p>I do a double transformation, to replace infinite values (resulting from null E-values, since <span class="math inline">\(-log_{10}(0) = \text{-inf}\)</span>) by a number, which I arbitrarily set to <span class="math inline">\(200\)</span> (higher than the 182).</p>
+<p><strong>Note</strong>: by default, the <code>log()</code> function computes natural logarithms. Base 10 logarithms can be computed easily by dividing the result by the natural logarithm of 10.</p>
+<p><span class="math display">\[log_{10}(x) = log_e(x) / log_e(10)\]</span></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Sort BLAST hits on a column with significance, computed with awk</span>
+<span class="fu">awk</span> <span class="st">&#39;{sig= -log($11) / log(10); print $0&quot;\t&quot; sig}&#39;</span> \
+  Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv \
+  <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{ sub(&quot;inf&quot;, &quot;200&quot;); print }&#39;</span> \
+  <span class="kw">|</span> <span class="fu">sort</span> -k 13,13 -n -r \
+  <span class="kw">|</span> <span class="fu">less</span> </code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Adapt the above command to sort on a double key:</p>
+<ul>
+<li>Primary key: decreasing significance (as computed above)</li>
+<li>Secondary key: decreasing bit score (the <span class="math inline">\(12^{th}\)</span> column of BLAST output)</li>
+</ul></li>
+</ol>
+<p>Store the result in a file named <code>[your_organism]__vs__Escherichia_coli_blastp_sorted.tsv</code></p>
+<div id="solution-5" class="section level3">
+<h3>Solution</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Sort BLAST hits by decreasing significance and decreasing bit score</span>
+<span class="fu">awk</span> <span class="st">&#39;{sig= -log($11) / log(10); print $0&quot;\t&quot; sig}&#39;</span> \
+  Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv \
+  <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{ sub(&quot;inf&quot;, &quot;200&quot;); print }&#39;</span> \
+  <span class="kw">|</span> <span class="fu">sort</span> -k 13,13 -k 12,12 -n -r \
+  <span class="op">&gt;</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_sorted.tsv
+  
+<span class="co">## Check the result</span>
+<span class="fu">less</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_sorted.tsv</code></pre></div>
 </div>
 </div>
 <div id="all-proteins-from-e.-coli-versus-e.-coli" class="section level2">
@@ -741,24 +806,58 @@ TVGDILTERVARLLLPFKEGPARTSSTLA</code></pre>
 </div>
 <div id="devoir-maison" class="section level1">
 <h1>Devoir-maison</h1>
+<div id="informations" class="section level2">
+<h2>Informations</h2>
+<ul>
+<li><p>Ce devoir-maison peut être réalisé en combinant quelques commandes en ligne (<code>cut</code>, <code>grep</code>, <code>awk</code>, <code>sort</code>, <code>uniq</code>, <code>wc</code>, <code>diff</code>) et l’outil bioinformatique <code>blastp</code>.</p>
+<p>Nous vous recommandons de lire les manuels de ces commandes, ou de consulter quelques tutoriels. En particulier, il sera utile de connaître la syntaxe de <code>awk</code> pour manipuler des chaînes de caractères (substitution, impression de colonnes sélectionnées) et pour numéroter les lignes. On trouve par exemple des informations ici: <a href="http://www.catonmat.net/blog/awk-one-liners-explained-part-two/" class="uri">http://www.catonmat.net/blog/awk-one-liners-explained-part-two/</a>.</p></li>
+<li><p>Le rendu de ce TP inclut un <strong>script bash</strong> rédigé de façon à être compréhensible par un lecteur non averti (commentez le code, nommez les variables de façon indicative, …). Ce script devra également être paramétrisable pour analyser d’autres organismes que le vôtre. A cette fin, définissez dès le début des variables pour les organismes d’intérêt (<code>QUERY_ORG</code>) et de référence (<code>REF_ORG</code>), ains que pour les noms de fichiers d’input et output. En principe l’enseignant devra pouvoir refaire tourner toutes vos analyses à partir de votre script.</p></li>
+<li><p>La seconde pièce du rendu sera un <strong>rapport d’interprétation</strong> synthétique.</p></li>
+<li><p>Ci-dessous (et dans votre rapport) nous désignerons les hits avec une E-valeur inférieure à 1e-5 comme <em>“homologues prédits”</em> ou plus simplement <em>“homologues”</em>.</p></li>
+</ul>
+</div>
+<div id="questions-2" class="section level2">
+<h2>Questions</h2>
 <ol style="list-style-type: decimal">
-<li><p>Faire tourner blast pour toutes les protéines de votre organisme d’intérêt contre toutes celles de E.coli.</p></li>
-<li><p>Sélectionner (<code>awk</code>) les hits avec une E-valeur inférieure à 0.00001 (= 1e-5). Ci-dessous (et dans votre rapport) nous désignerons ceux-ci comme <em>“homologues prédits”</em> ou plus simplement <em>“homologues”</em>.</p></li>
-<li><p>Compter le nombre d’homologues prédits par protéine (<code>uniq -c</code>).</p></li>
-<li><p>Calculer le nombre de protéines sans homologue prédit.</p></li>
+<li><p>Faites tourner blast pour toutes les protéines de votre organisme d’intérêt contre toutes celles de E.coli, en sélectionnant un fichier de sortie tabulaire sans commentaires, et un seuil de <span class="math inline">\(10^{-5}\)</span> sur la E-valeur.</p></li>
+<li><p>Compter</p>
+<ul>
+<li>le nombre total de hits</li>
+<li>le nombre total de paires de protéines avec un hit</li>
+<li>le nombre de protéines de votre ortanisme d’intérêt ayant au moins un hit chez <em>E.coli</em></li>
+<li>le nombre de protéines d’<em>E.coli</em> pour lesquelles au moins un hit a été trouvé à partir de votre organisme d’intérêt</li>
+</ul></li>
+<li><p>Générez un fichier qui indique le nombre d’homologues prédits par protéine de l’organisme d’intérêt. Ce fichier contiendra une ligne par protéine, et deux colonnes, indiquant respectivement le nombre de hits et l’ID de la protéine (<code>uniq -c</code>). Triez les résultats par nombre décroissant de hits.</p></li>
+<li><p>Calculer le nombre de protéines de l’organisme d’intérêt sans homologue prédit.</p></li>
 <li><p>Calculer la distribution du number d’homologues par protéine (combien de protéines ont 0, 1, 2, 3, … homologues).</p></li>
-<li><p>Sélectionner le meilleur hit (Best Hit, BH) pour chaque protéine. Par <em>Best hit</em> on entend l’alignement avec la E-valeur la plus faible. Comme il peut y avoir des ambiguités liées à l’arrondu des E-valeurs inférieures à la limite de précision de calcul de BLAST (~1e-180), on utilisera plutôt le score en bits comme critère de BBH.</p></li>
-<li><p>Faire tourner blast pour toutes les protéines de <em>E.coli</em> contre votre organisme d’intérêt, et réaliser les mêmes analyses des résultats.</p></li>
-<li><p>Identifiez dans les deux comparaisons (votre organisme vs <em>E.coli</em> et <em>E.coli</em> vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d’établir les relations d’orthologie et de paralogie.</p></li>
+<li><p>Calculez le rang de chaque hit par rapport à la protéine “query” (organisme d’intérêt), et par rapport à la protéine “subject” (organisme de référence, <em>E.coli</em>).</p>
+<ul>
+<li><p>Par <em>Best hit</em> on entend l’alignement avec la E-valeur la plus faible. EN cas d’ambiguité liée à l’arrondi des E-valeurs (par exemple si une protéine présente plusieurs hits avec une E-valeur arrondie à 0) on peut utiliser le score en bits comme critère secondaire de tri.</p></li>
+<li><p>Une façon de procéder est d’utiliser <code>awk</code> en définissant un compteur qui est incrémenté à chaque occurrence de l’ID query (1ère colonne). Voici une façon d’imprimer à la fois le rang des hits pour chaque protéine de l’organisme d’intérêt (qrank)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p></li>
+</ul></li>
 </ol>
-<p><strong>Question bonus (si vous y arrivez)</strong></p>
-<ol start="6" style="list-style-type: decimal">
-<li>Identifier les Bidirectional Best Hits (BBH).</li>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cat</span> <span class="va">${BLAST_HITS}</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;qrank[$1]++ {print qrank[$1]-1&quot;\t&quot;$0}&#39;</span></code></pre></div>
+<ol start="12" style="list-style-type: decimal">
+<li>Identifiez dans les deux comparaisons (votre organisme vs <em>E.coli</em> et <em>E.coli</em> vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d’établir les relations d’orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant “P”, “O”, ou “I” pour paralogie, orthologie ou identité, respectivement.</li>
+</ol>
+<div id="question-bonus-pour-les-acharnes" class="section level3">
+<h3>Question bonus pour les acharnés</h3>
+<ol style="list-style-type: decimal">
+<li><p>Utilisez votre script pour effectuer les analyses dans l’autre sens, en inversant les noms d’organismes d’intérêt (QUERY_ORG) et de référence (REF_ORG).</p></li>
+<li><p>Fusionnez les deux résultats et calculez les bidirectional best hits.</p></li>
 </ol>
 <hr />
 </div>
+</div>
+</div>
 <div id="references" class="section level1">
 <h1>References</h1>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Note: pour une raison que je ne comprends pas cette syntaxe commence le comptage à 2, je soustrais donc 1 au moment d’imprimer<a href="#fnref1">↩</a></p></li>
+</ol>
 </div>
 
 
