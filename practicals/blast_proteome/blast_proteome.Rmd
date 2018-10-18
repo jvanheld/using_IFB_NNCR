@@ -751,10 +751,21 @@ wc -l  ${BLAST_QUERY_BH} ${BLAST_SUBJECT_BH} ${BLAST_BBH}
 
 - Le rendu de ce TP inclut un **script bash** rédigé de façon à être compréhensible par un lecteur non averti (commentez le code, nommez les variables de façon indicative, ...). Ce script devra également être paramétrisable pour analyser d'autres organismes que le vôtre. A cette fin, définissez dès le début des variables pour les organismes d'intérêt (`QUERY_ORG`) et de référence (`REF_ORG`), ains que pour les noms de fichiers d'input et output. En principe l'enseignant devra pouvoir refaire tourner toutes vos analyses à partir de votre script. 
 
+
 - La seconde pièce du rendu sera un **rapport d'interprétation** synthétique. 
 
 - Ci-dessous (et dans votre rapport) nous désignerons les hits avec une E-valeur inférieure à 1e-5 comme *"homologues prédits"* ou plus simplement *"homologues"*. 
 
+## Modèle de rapport
+
+Je fournis ci-dessous 2 modèles de rapport pour le devoir-maison du TP proteome BLAST. 
+
+- Format docx (peut s'ouvrir avec LibreOffice ou avec un éditeur de texte commercial). 
+- *Pour les geeks*: un fichier R markdown (extension Rmd), que j'ai utilisé pour générer le modèle de rapport docs. Ce fichier Rmd peut être édité et compilé avec RStudio de façon relativement intuitive, pour produire un rapport HTML, pdf ou docx. Comme vous n'avez pas encore eu l'occasion d'apprendre R markdown, il n'y a aucune obligation à utiliser ce format, mais je vous le fournis déjà pour ceux qui seraient tentés de se lancer. Si c'est votre cas, soumettez à la fois le fichier Rmd et le résultat de votre compilation (html, word ou docx). 
+
+- Modèle de rapport: 
+  [docx](blast_proteome_rapport-TP_NOM_Prenom.docx)
+  [Rmd](blast_proteome_rapport-TP_NOM_Prenom.Rmd)
 
 ## Questions
 
