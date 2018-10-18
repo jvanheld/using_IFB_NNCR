@@ -268,7 +268,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Using BLAST on the command line</h1>
 <h4 class="author"><em>Jacques van Helden</em></h4>
-<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-14</em></h4>
+<h4 class="date"><em>Created: 8/10/2018; last update: 2018-10-18</em></h4>
 
 </div>
 
@@ -900,23 +900,24 @@ CAB12735        AAC76480        22.707  229     ...   242     1.00e-13        65
 <li><p>Générez un fichier qui indique le nombre d’homologues prédits par protéine de l’organisme d’intérêt. Ce fichier contiendra une ligne par protéine, et deux colonnes, indiquant respectivement le nombre de hits et l’ID de la protéine (<code>uniq -c</code>). Triez les résultats par nombre décroissant de hits (les protéines ayant le plus grand nombre de hits s’affichent en premier lieu). Afficher les 10 premières lignes du fichier.</p></li>
 </ol>
 <p><strong><em>Question d’interprétation</em></strong> : Utilisez Uniprot pour savoir quelle est la fonction biologique des protéines présentant un très grand nombre de hits. Cette fonction permet-elle de comprendre ce nombre excessif de hits ?</p>
-<ol start="7" style="list-style-type: decimal">
+<ol start="5" style="list-style-type: decimal">
 <li>Calculez le nombre de protéines de l’organisme d’intérêt sans homologue prédit.</li>
 </ol>
 <p><strong><em>Question d’interprétation</em></strong> : Comment interprétéz-vous ces protéines sans hit ?</p>
-<ol start="8" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li>Calculer la distribution du nombre d’homologues par protéine (combien de protéines ont 0, 1, 2, 3, … homologues).</li>
 </ol>
 <p><strong><em>Question d’interprétation</em></strong> : quel est le nombre moyen de hits ? Combien de protéines ont un seul hit ? Comment interpréteriez-vous ces deux nombres en termes évolutifs ?</p>
-<ol start="12" style="list-style-type: decimal">
+<ol start="7" style="list-style-type: decimal">
 <li>Identifiez dans les deux comparaisons (votre organisme vs <em>E.coli</em> et <em>E.coli</em> vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d’établir les relations d’orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant “P”, “O”, ou “I” pour paralogie, orthologie ou identité, respectivement.</li>
 </ol>
 <p><strong><em>Question d’interprétation</em></strong> : comment interprétez-vous ces résultats en terme de voies métaboliques ? N’hésitez pas à constuler des ressources complémentaires (KEGG, MetaCyc, …).</p>
 <div id="question-bonus-pour-les-acharnes" class="section level3">
 <h3>Question bonus pour les acharnés</h3>
 <ol style="list-style-type: decimal">
+<li><p>Utilisez le programme <code>shuffleseq</code> pour permuter les séquences de votre organisme d’intérêt, et effectuez les mêmes analyses avec ces séquences aléatoires. Comparez les résultats et ceux obtenus avec le protéome de votre organisme d’intérê.</p></li>
+<li><p>Comparez le protéome de <em>E.coli</em> à lui-même et calculez les nombres de hits.</p></li>
 <li><p>Utilisez votre script pour effectuer les analyses dans l’autre sens, en inversant les noms d’organismes d’intérêt (QUERY_ORG) et de référence (REF_ORG).</p></li>
-<li><p>Fusionnez les deux résultats et calculez les bidirectional best hits.</p></li>
 </ol>
 <hr />
 </div>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="VOTRE NOM" />
+
+<meta name="date" content="2018-10-18" />
+
+<title>Using BLAST on the command line</title>
+
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="blast_proteome_rapport-TP_NOM_Prenom_files/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="blast_proteome_rapport-TP_NOM_Prenom_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/navigation-1.1/tabsets.js"></script>
+<script src="blast_proteome_rapport-TP_NOM_Prenom_files/navigation-1.1/codefolding.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Using BLAST on the command line</h1>
+<h4 class="author"><em>VOTRE NOM</em></h4>
+<h4 class="date"><em>2018-10-18</em></h4>
+
+</div>
+
+
+<hr />
+<div id="votre-code-commente" class="section level1">
+<h1>Votre code commenté</h1>
+<p><em>Insérez dans le bloc ci-dessous votre code commenté. En principe ce code doit pouvoir être exécuté par une autre personne (l’enseignant) pour reproduire vos résultats</em></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Identification of bidirectional best hits with blastp</span>
+
+
+<span class="co">## Collez ici votre code</span></code></pre></div>
+</div>
+<div id="reponses-aux-questions" class="section level1">
+<h1>Réponses aux questions</h1>
+<div id="identification" class="section level2">
+<h2>Identification</h2>
+<ul>
+<li>Votre nom:</li>
+<li>Votre prénom:</li>
+<li>Votre email:</li>
+<li>Organisme d’intérêt:</li>
+</ul>
+</div>
+<div id="comptage-des-hits" class="section level2">
+<h2>Comptage des hits</h2>
+<table style="width:97%;">
+<colgroup>
+<col width="70%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Question</th>
+<th align="center">Réponse</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Nombre total de hits</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">Nombre total de paires de protéines avec un hit:</td>
+</tr>
+<tr class="odd">
+<td align="left">Nombre de protéines de votre ortanisme d’intérêt ayant au moins un hit chez <em>E.coli</em></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">Nombre de protéines d’<em>E.coli</em> pour lesquelles au moins un hit a été trouvé à partir de votre organisme d’intérêt</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">Nombre de best hits pour l’organisme d’intérêt</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">Nombre de best hits pour l’organisme de référence (<em>E.coli</em>)</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">Nombre de best hits bidirectionnels</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">Nombre de protéines de l’organisme d’intérêt sans homologue prédit</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">Nombre moyen de hits par protéine</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">Nombre de protéines avec 1 seul hit</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">Nombre d’homologues de l’aspartokinase</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="interpretation-biologique" class="section level1">
+<h1>Interprétation biologique</h1>
+<div id="proteines-avec-le-plus-grand-nombre-de-hits" class="section level2">
+<h2>Protéines avec le plus grand nombre de hits</h2>
+<p><em>Collez dans le bloc ci-dessous les 10 premières lignes du fichier indiquant le nombre de hits par protéines, trié par ordre décroissant. </em></p>
+<pre><code>## 10 proteins with the highest number of hits
+
+[Collez ici votre résultat]
+</code></pre>
+<p><strong>Votre interprétation</strong></p>
+<p><em>Résumez en une dizaine de ligne votre interprétaion des protéines les plus connectées, en faisant le lien avec leur fonction biologique. </em></p>
+</div>
+<div id="proteines-sans-hit" class="section level2">
+<h2>Protéines sans hit</h2>
+<ul>
+<li>Nombre de protéines de votre organisme d’intérêt sans hit chez <em>E.coli</em>:</li>
+</ul>
+<p><strong>Votre interprétation</strong></p>
+<p><em>Expliquez en 5 à 10 lignes les raisons pour lesquelles on trouve dans votre protéome des protéines sans hit chez E.coli</em></p>
+</div>
+<div id="proteines-avec-1-ou-plusieurs-hits" class="section level2">
+<h2>Protéines avec 1 ou plusieurs hits</h2>
+<p><strong><em>Question d’interprétation</em></strong> :</p>
+<ul>
+<li>Nombre moyen de hits :</li>
+<li>Nombre de protéines avec un seul hit ;</li>
+</ul>
+<p><strong>Votre interprétation</strong></p>
+<p><em>Fournissez en quelques lignes une interprétation évolutive du nombre moyen de hits par protéine, et du nombre de protéines avec un seul hit.?</em></p>
+</div>
+<div id="homologues-de-laspartokinase" class="section level2">
+<h2>Homologues de l’aspartokinase</h2>
+<ul>
+<li>Nombre d’homologues de l’aspartokinase</li>
+</ul>
+<p><strong>Tableau des relations d’orthologies et paralogies (approximation basée sur le BBH)</strong></p>
+<p><em>Insérez un tableau avec les gènes de votre organisme sur les lignes et les gènes de E.coli sur les colonnes, et en indiquant “P”, “O”, ou “I” pour paralogie, orthologie ou identité, respectivement.</em></p>
+<p><strong>Votre interprétation</strong></p>
+<p><em>Fournissez en quelques lignes une interprétation de ces résultats concernant l’aspartokinase chez votre organisme d’intérêt. </em></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

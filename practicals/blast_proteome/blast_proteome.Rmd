@@ -774,24 +774,27 @@ wc -l  ${BLAST_QUERY_BH} ${BLAST_SUBJECT_BH} ${BLAST_BBH}
 
 ***Question d'interprétation*** : Utilisez Uniprot pour savoir quelle est la fonction biologique des protéines présentant un très grand nombre de hits. Cette fonction permet-elle de comprendre ce nombre excessif de hits ?
 
-7. Calculez le nombre de protéines de l'organisme d'intérêt sans homologue prédit. 
+5. Calculez le nombre de protéines de l'organisme d'intérêt sans homologue prédit. 
 
 ***Question d'interprétation*** : Comment interprétéz-vous ces protéines sans hit ?  
 
-8. Calculer la distribution du nombre d'homologues par protéine (combien de protéines ont 0, 1, 2, 3, ... homologues).
+6. Calculer la distribution du nombre d'homologues par protéine (combien de protéines ont 0, 1, 2, 3, ... homologues).
 
 ***Question d'interprétation*** : quel est le nombre moyen de hits ? Combien de protéines ont un seul hit ? Comment interpréteriez-vous ces deux nombres en termes évolutifs ?
 
-12. Identifiez dans les deux comparaisons (votre organisme vs *E.coli* et *E.coli* vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d'établir les relations d'orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant "P", "O", ou "I" pour paralogie, orthologie ou identité, respectivement.
+7. Identifiez dans les deux comparaisons (votre organisme vs *E.coli* et *E.coli* vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d'établir les relations d'orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant "P", "O", ou "I" pour paralogie, orthologie ou identité, respectivement.
 
 ***Question d'interprétation*** : comment interprétez-vous ces résultats en terme de voies métaboliques ? N'hésitez pas à constuler des ressources complémentaires (KEGG, MetaCyc, ...). 
 
 
 ### Question bonus pour les acharnés
 
-1. Utilisez votre script pour effectuer les analyses dans l'autre sens, en inversant les noms d'organismes d'intérêt (QUERY_ORG) et de référence (REF_ORG). 
+1. Utilisez le programme `shuffleseq` pour permuter  les séquences de votre organisme d'intérêt, et effectuez les mêmes analyses avec ces séquences aléatoires. Comparez les résultats et ceux obtenus avec le protéome de votre organisme d'intérê. 
 
-2. Fusionnez les deux résultats et calculez les bidirectional best hits. 
+2. Comparez le protéome de *E.coli* à lui-même et calculez les nombres de hits. 
+
+3. Utilisez votre script pour effectuer les analyses dans l'autre sens, en inversant les noms d'organismes d'intérêt (QUERY_ORG) et de référence (REF_ORG). 
+
 
 
 ****************************************************************

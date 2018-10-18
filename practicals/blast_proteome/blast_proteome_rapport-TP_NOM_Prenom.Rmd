@@ -1,0 +1,131 @@
+---
+title: "Using BLAST on the command line"
+author: "VOTRE NOM"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    code_folding: show
+    self_contained: false
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  md_document:
+    variant: markdown_github
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 2
+  word_document:
+    toc: yes
+    toc_depth: 2
+---
+
+
+```{r setup, include=FALSE}
+library(knitr, warn.conflicts = FALSE)
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  results = TRUE, 
+  message = FALSE,
+  fig.align = "center")
+
+```
+
+****************************************************************
+# Votre code commenté
+
+*Insérez dans le bloc ci-dessous votre code commenté. En principe ce code doit pouvoir être exécuté par une autre personne (l'enseignant) pour reproduire vos résultats*
+
+```{bash eval=FALSE, echo=TRUE}
+## Identification of bidirectional best hits with blastp
+
+
+## Collez ici votre code
+
+
+```
+
+
+# Réponses aux questions 
+
+## Identification
+
+- Votre nom: 
+- Votre prénom: 
+- Votre email: 
+- Organisme d'intérêt: 
+
+## Comptage des hits
+
+| Question | Réponse |
+|:-------------------------------------------------|:----------------:|
+| Nombre total de hits |    |
+| Nombre total de paires de protéines avec un hit: 
+| Nombre de protéines de votre ortanisme d'intérêt ayant au moins un hit chez *E.coli* |    |
+| Nombre de protéines d'*E.coli* pour lesquelles au moins un hit a été trouvé à partir de votre organisme d'intérêt |     |
+| Nombre de best hits pour l'organisme d'intérêt |    |
+| Nombre de best hits pour l'organisme de référence (*E.coli*) |    |
+| Nombre de best hits bidirectionnels |    |
+| Nombre de protéines de l'organisme d'intérêt sans homologue prédit |    |
+| Nombre moyen de hits par protéine |   |
+| Nombre de protéines avec 1 seul hit |   |
+| Nombre d'homologues de l'aspartokinase |   |
+| | |
+
+# Interprétation biologique
+
+
+## Protéines avec le plus grand nombre de hits
+
+*Collez dans le bloc ci-dessous les 10 premières lignes du fichier indiquant le nombre de hits par protéines, trié par ordre décroissant. *
+
+```
+## 10 proteins with the highest number of hits
+
+[Collez ici votre résultat]
+
+```
+
+**Votre interprétation**
+
+*Résumez en une dizaine de ligne votre interprétaion des protéines les plus connectées, en faisant le lien avec leur fonction biologique. *
+
+## Protéines sans hit
+
+- Nombre de protéines de votre organisme d'intérêt sans hit chez *E.coli*: 
+
+**Votre interprétation**
+
+*Expliquez en 5 à 10 lignes les raisons pour lesquelles on trouve dans votre protéome des protéines sans hit chez E.coli*
+
+## Protéines avec 1 ou plusieurs hits
+
+***Question d'interprétation*** : 
+
+- Nombre moyen de hits : 
+- Nombre de protéines avec un seul hit ;
+
+**Votre interprétation**
+
+*Fournissez en quelques lignes une interprétation évolutive du nombre moyen de hits par protéine, et du nombre de protéines avec un seul hit.?*
+
+
+## Homologues de l'aspartokinase
+
+- Nombre d'homologues de l'aspartokinase
+
+
+**Tableau des relations d'orthologies et paralogies (approximation basée sur le BBH)**
+
+*Insérez un tableau avec les gènes de votre organisme sur les lignes et les gènes de E.coli sur les colonnes, et en indiquant "P", "O", ou "I" pour paralogie, orthologie ou identité, respectivement.*
+
+
+**Votre interprétation**
+
+*Fournissez en quelques lignes une interprétation de ces résultats concernant l'aspartokinase chez votre organisme d'intérêt. *
+
+
