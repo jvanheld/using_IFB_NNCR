@@ -40,6 +40,21 @@ setwd(dir.tp)
 
 ```
 
+# Modifications récentes
+
+- Dans la section ["Identifying aspartokinase homologs in the proteome of interest"](https://jvanheld.github.io/using_IFB_NNCR/practicals/blast_proteome/blast_proteome.html#identifying_aspartokinase_homologs_in_the_proteome_of_interest), 
+
+    - ajout d'un seuil sur la e-value
+    - ajouts de liens vers Uniprot et BioCyc pour donner des clés d'interprétation
+
+
+
+
+****************************************************************
+# Course home page
+
+This practical is part of a series of tutorials ***Using the resources of the IFB National Network of Ccomputing Resources** (**NNCR**)*, available at **<https://jvanheld.github.io/using_IFB_NNCR/>**
+
 ****************************************************************
 # Prerequisite
 
@@ -400,11 +415,15 @@ Read blastp manual and find a way to tune the formatting options in order to get
 ### Solution
 
 ```{bash eval=FALSE}
+## Search similarities for aspartokinase 3 in E.coli proteome.
+## Return the result as a synthetic table with the matching statistics for each hit. 
 blastp -outfmt 7 \
   -db Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.pep.all.fa  \
   -query P08660.fasta \
   > lysC_vs_Ecoli_synthesis.tsv
 
+## Check the result
+more lysC_vs_Ecoli_synthesis.tsv
 ```
 
 
@@ -413,26 +432,12 @@ blastp -outfmt 7 \
 
 In this section, we will perform a quick empirical test, by submitting a random sequence to blastp. For this, we will shuffle the aminoacids of the original query sequence. 
 
+<!--
 ## Shuffling sequences with a Web tool
 
 One way to shuffle sequences is to use a convenient Web tool at <http://www.bioinformatics.org/sms2/shuffle_protein.html>
+-->
 
-
-Here is an example of result (I just simplified the header of the shuffle output fasta sequence for the sake of readability). 
-
-Of course, your result should differ since each shuffling produces a randomized sequence. 
-
-```
->shuffled_lysC
-VEAINNAVKRELSALGDVADLFVLEFDNDRLGWADAIIRVLLNTEMNGELKPAEVASAIV
-GLIDEPELDTLVYSPLAGIFFLMCLIDFRGLGRREPTVPHSIMAGSGNALCRYFVTGLLL
-LDTNAFAIRETKNLEAFVAEFQAADNFAQARNPANLPKLILCLSVNGVLQASPFFNLNEG
-ADVVSESSAASLKADEDQSVITLEEDIVVTEGASSFDLALGLLMHLNVDRKVGAEWLEDE
-VSPVMVEVLTLVLTQEALTVTSIALLRGDTRKRVGLVLNSFTSHDLIAPSLILIGTSLVT
-RHFLVGAKVRIQERKASTSFRRLLAGRTETYRGLEIYAPCISMTTAVRRMQAGGIAHREI
-QETIACRKSTELLSTIASPHAEVGFEAANGTLLGVLTADHVSMALQAVNGGESLPDEHRR
-TVGDILTERVARLLLPFKEGPARTSSTLA
-```
 
 ## Shuffling sequences with EMBOSS shuffleseq
 
@@ -454,6 +459,22 @@ cat shuffled_lysC.fa
 
 ## Compare the shuffled seq with the original one
 cat P08660.fasta
+```
+
+Here is an example of result (I just simplified the header of the shuffle output fasta sequence for the sake of readability). 
+
+Of course, your result should differ since each shuffling produces a randomized sequence. 
+
+```
+>shuffled_lysC
+VEAINNAVKRELSALGDVADLFVLEFDNDRLGWADAIIRVLLNTEMNGELKPAEVASAIV
+GLIDEPELDTLVYSPLAGIFFLMCLIDFRGLGRREPTVPHSIMAGSGNALCRYFVTGLLL
+LDTNAFAIRETKNLEAFVAEFQAADNFAQARNPANLPKLILCLSVNGVLQASPFFNLNEG
+ADVVSESSAASLKADEDQSVITLEEDIVVTEGASSFDLALGLLMHLNVDRKVGAEWLEDE
+VSPVMVEVLTLVLTQEALTVTSIALLRGDTRKRVGLVLNSFTSHDLIAPSLILIGTSLVT
+RHFLVGAKVRIQERKASTSFRRLLAGRTETYRGLEIYAPCISMTTAVRRMQAGGIAHREI
+QETIACRKSTELLSTIASPHAEVGFEAANGTLLGVLTADHVSMALQAVNGGESLPDEHRR
+TVGDILTERVARLLLPFKEGPARTSSTLA
 ```
 
 
@@ -531,6 +552,7 @@ makeblastdb -in Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa -db
 
 ## Identifying aspartokinase homologs  in the proteome of interest
 
+To identify homologs for a given protein, we can run a simple blastp search against the proteome of the organism of interest (in my case, *Bacillus subtilis*). 
 
 ```{bash eval=FALSE}
 blastp \
@@ -545,7 +567,42 @@ blastp -outfmt 7\
   
 ```
 
+However this would return many false positives, since BLAST sets its default E-value to 10 (we thus expect ~10 false positives on average for such a search). To avoid this, blastp enables to control the expected number of false positives with a threshold on the E-value, using the option `-evalue`. 
 
+
+```{bash eval=FALSE}
+blastp  -evalue 0.00001 \
+  -db Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
+  -query P08660.fasta \
+  > lysC_vs_Bacillus_subtilis_eval0.00001.txt
+
+## Check the alignments of aspartokinase homologs
+less lysC_vs_Bacillus_subtilis_eval0.00001.txt
+
+blastp -evalue 0.00001 -outfmt 7 \
+  -db Bacillus_subtilis_subsp_subtilis_str_168.ASM904v1.pep.all.fa \
+  -query P08660.fasta \
+  > lysC_vs_Bacillus_subtilis_eval0.00001_outfmt7.tsv
+
+## Check the matching statistics for the aspartokinase homologs
+cat lysC_vs_Bacillus_subtilis_eval0.00001_outfmt7.tsv
+```
+
+#### Interpretation of the result
+
+Note the strong reduction of the number of hits. By setting a stringent threshold of the e-value, we retained only the most significant hits. It is worth checking the other matching statistics, in particular the alignment length and the percentage of identical aminoacids: the threshold on e-value indirectly led to select the large alignments with a high percentage of identities (because these combined conditions are required to achieve a good statistical significance).  
+
+We can now check the function of the hits on the Uniprot database (<http://uniprot.org>).
+
+Here is a link to the three proteins found in *Bacillus subtlis*: 
+
+<https://www.uniprot.org/uniprot/?query=cab14807+OR+CAB12187+OR+CAB13549>
+
+What is the function of these proteins?  In which pathways are these involved?
+
+We can also try to understand the role of these aspartokinases by visualizing their place in metabolic pathwauys annotated in the BioCyc database. 
+
+<https://biocyc.org/BSUB/NEW-IMAGE?type=PATHWAY&object=PWY-2941>
 
 ## All proteins of *B.subtilis* against all proteins of *E. coli*
 

@@ -40,6 +40,12 @@ setwd(dir.tp)
 ```
 
 ****************************************************************
+# Course home page
+
+This practical is part of a series of tutorials ***Using the resources of the IFB National Network of Ccomputing Resources** (**NNCR**)*, available at **<https://jvanheld.github.io/using_IFB_NNCR/>**
+
+
+****************************************************************
 # Instructions  pour les étudiants AMU
 
 - Le TP qui suit est rédigé en anglais, pour vous familiariser avec la langue utilisée sur l'ensemble des ressources bioinformatiques internationales. 
