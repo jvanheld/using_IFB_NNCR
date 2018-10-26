@@ -276,11 +276,12 @@ div.tocify {
 <div id="modifications-recentes" class="section level1">
 <h1>Modifications récentes</h1>
 <ul>
-<li><p>Dans la section <a href="https://jvanheld.github.io/using_IFB_NNCR/practicals/blast_proteome/blast_proteome.html#identifying_aspartokinase_homologs_in_the_proteome_of_interest">“Identifying aspartokinase homologs in the proteome of interest”</a>,</p>
+<li><p>2028-20-26: dans la section <a href="blast_proteome.html#identifying_aspartokinase_homologs_in_the_proteome_of_interest">“Identifying aspartokinase homologs in the proteome of interest”</a>,</p>
 <ul>
 <li>ajout d’un seuil sur la e-value</li>
 <li>ajouts de liens vers Uniprot et BioCyc pour donner des clés d’interprétation</li>
 </ul></li>
+<li><p>2028-20-26: ajout d’une section <a href="blast_proteome.html#counting_the_number_of_hits_per_protein">Counting the number of hits per protein</a></p></li>
 </ul>
 <hr />
 </div>
@@ -798,11 +799,37 @@ time blastp -outfmt 6 -evalue 0.00001 \
 ## Count the number of hits
 wc -l Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv</code></pre>
 </div>
+<div id="counting-the-number-of-hits-per-protein" class="section level3">
+<h3>Counting the number of hits per protein</h3>
+<p>We can count the number of hits for each protein by combining a few unix commands: <code>cut</code>, <code>sort</code> and <code>uniq</code>. To this purpose, we will progressively build a single unix command line that chains these tools with the pipe symbol <code>|</code>, which sends the output of one unix command as input for the next one.</p>
+<p>We will first cut the column containing the IDs of the proteins in the query proteome.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## Identify  the column containing the ID of the hits in the proteome of interest</span>
+<span class="fu">head</span> Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv
+
+<span class="co">## Cut the first column (containing the ID of the hits in the query proteome)</span>
+<span class="fu">cut</span> -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">more</span>
+
+<span class="co">## Count the number of hits</span>
+<span class="fu">cut</span> -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">wc</span> -l</code></pre></div>
+<p>We will now count the number of unique hits. For this we use the command sort with the argument -u (unique).</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cut</span> -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">sort</span> -u <span class="kw">|</span> <span class="fu">wc</span> -l</code></pre></div>
+<p>We see that there are much less unique IDs than the total number of hits. However this does not yet tell us how many hits were found for each particular protein.</p>
+<p>The program <code>uniq</code> suppresses redundant rows in a file. Combining <code>sort</code> and <code>uniq</code> has the same effect as using <code>sort -u</code>. Check by yourself.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cut</span> -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> -l</code></pre></div>
+<p>In addition, the program <code>uniq</code> contains an option <code>-c</code> enabling to report the number of occurrences of each row. Since we first used the <code>cut</code> command to obtain the column containing the protein IDs, each row analysed here corresponds to an ID of the query proteome. The command this counds the number of occurrences of each query protein in the blastp result file, which corresponds to its number of hits in the reference genome.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cut</span> -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c <span class="kw">|</span> <span class="fu">less</span></code></pre></div>
+<p>We can now use the command <code>sort</code> (a second time in the same chain of commands) in order to sort the protein IDs by decreasing number of hits.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cut</span> -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c <span class="kw">|</span><span class="fu">sort</span> -nr -k 1 <span class="kw">|</span> <span class="fu">less</span></code></pre></div>
+<p>Finally, we select the 15 first rows with the command <code>head</code>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cut</span> -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c <span class="kw">|</span><span class="fu">sort</span> -nr -k 1 <span class="kw">|</span> <span class="fu">head</span> -n 15</code></pre></div>
+<div id="interpretation-of-the-results" class="section level4">
+<h4>Interpretation of the results</h4>
+<p>Here is a link to the <strong><a href="https://www.uniprot.org/uniprot/?query=CAB13179+OR+CAB15611+OR+CAB15144+OR+CAB12556+OR+CAB12571+OR+CAB12414+OR+CAB12368+OR+CAB15335+OR+CAB15984+OR+CAB15318+OR+CAB14327+OR+CAB12578+OR+CAB11921+OR+CAB15543+OR+CAB15020">result for B.subtilis against E.coli</a></strong></p>
+</div>
+</div>
 <div id="sorting-hits-by-significance" class="section level3">
 <h3>Sorting hits by significance</h3>
-<ol start="5" style="list-style-type: decimal">
-<li>We will now try to sort the hits by increasing E-value, in order to display the most significant hits n first place. For this, the simplest solution seems to use <code>sort</code> and specify a numeric sorting (option <code>-n</code>) on the numeric value of the <span class="math inline">\(11^{th}\)</span> column (option <code>-k 11</code>), which contains the E-value. More precisely, we will specify <code>-k 11,11</code> to sort on this column only, because the option <code>-k 11</code> would use the <span class="math inline">\(11^{th}\)</span> and all the subsequent columns as sorting keys. Let us look at the result.</li>
-</ol>
+<p>We will now try to sort the hits by increasing E-value, in order to display the most significant hits n first place. For this, the simplest solution seems to use <code>sort</code> and specify a numeric sorting (option <code>-n</code>) on the numeric value of the <span class="math inline">\(11^{th}\)</span> column (option <code>-k 11</code>), which contains the E-value. More precisely, we will specify <code>-k 11,11</code> to sort on this column only, because the option <code>-k 11</code> would use the <span class="math inline">\(11^{th}\)</span> and all the subsequent columns as sorting keys. Let us look at the result.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">## A first attempt to sort by E-value, not very convincint !</span>
 <span class="fu">sort</span> -k 11,11 -n Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv <span class="kw">|</span> <span class="fu">less</span> </code></pre></div>
 <p>Go down by a few pages by pressing the space bar, and pay a particular attention to the 11th column, which contains the E-value. Is the sorting correct ?</p>
@@ -837,13 +864,9 @@ CAB12735        AAC76480        22.707  229     ...   242     1.00e-13        65
 </div>
 <div id="sorting-hits-by-significance-bit-score" class="section level3">
 <h3>Sorting hits by significance + bit score</h3>
-<ol start="6" style="list-style-type: decimal">
-<li><p>Adapt the above command to sort on a double key:</p>
-<ul>
-<li>Primary key: decreasing significance (as computed above)</li>
-<li>Secondary key: decreasing bit score (the <span class="math inline">\(12^{th}\)</span> column of BLAST output)</li>
-</ul></li>
-</ol>
+<p>Adapt the above command to sort on a double key:</p>
+<pre><code>- Primary key: decreasing significance (as computed above) 
+- Secondary key: decreasing bit score (the $12^{th}$ column of BLAST output)</code></pre>
 <p>Store the result in a file named <code>[your_organism]__vs__Escherichia_coli_blastp_sorted.tsv</code></p>
 <div id="solution-5" class="section level4">
 <h4>Solution</h4>
@@ -863,13 +886,9 @@ CAB12735        AAC76480        22.707  229     ...   242     1.00e-13        65
 </div>
 <div id="computing-blast-hit-ranks" class="section level3">
 <h3>Computing blast hit ranks</h3>
-<ol start="7" style="list-style-type: decimal">
-<li><p>Starting from the sorted blast hits, compute</p>
-<ul>
-<li>a rank of the hits according to the query protein (<code>qrank</code>),</li>
-<li>another rank according to the “subject” protein (<code>srank</code>), i.e. the protein found in the blast database of your reference organism.</li>
-</ul></li>
-</ol>
+<p>Starting from the sorted blast hits, compute</p>
+<pre><code>- a rank of the hits according to the query protein (`qrank`),
+- another rank according to the &quot;subject&quot; protein (`srank`), i.e. the protein found in the blast database of your reference organism. </code></pre>
 <p><strong>Definition</strong>: by <strong><em>Best hit</em></strong> we mean the most significant alignment, i.e. the alignment with the smallest E-value. In case of identical E-values, the bit score is used as secondary ranking criterion, as we did above.</p>
 <p><strong>Tip</strong>: <code>awk</code> enables to compute ranks by incrementing a counter at each occurrence of a given value (e.g. a protein identifier) in a given column (e.g. the first column, which contains query protein IDs).</p>
 <p>The following command adds a column to the sorted blast hits, indicating the occurrence number of each value of the first column. Since our file is sorted by E-value, this corresponds to the rank of the hits according to the query sequences (we therefore name the variable <code>qrank</code>).</p>
@@ -881,18 +900,15 @@ CAB12735        AAC76480        22.707  229     ...   242     1.00e-13        65
   
 <span class="co">## Check the result</span>
 <span class="fu">less</span> <span class="va">${BLAST_HITS_RANKED}</span></code></pre></div>
-<p>With less, you can browse the content by pressing the space bar in order to see the next “page”. In the beginning of the file, most ranks are 1 in the two last columns, because the very low E-values generally correspond to the bidirectional best hit. As you go down, you will notice some hits with larger rank values for the <code>srank</code> and <code>qrank</code> columns, indicating that the query or subject sequences have multiple hits.</p>
+<p><strong><em>less does more or less the same as more</em></strong></p>
+<p>With the <code>less</code> command, you can browse the content by pressing the space bar in order to see the next “page”. In the beginning of the file, most ranks are 1 in the two last columns, because the very low E-values generally correspond to the bidirectional best hit. As you go down, you will notice some hits with larger rank values for the <code>srank</code> and <code>qrank</code> columns, indicating that the query or subject sequences have multiple hits.</p>
 </div>
 <div id="finding-best-hits" class="section level3">
 <h3>Finding best hits</h3>
-<ol start="8" style="list-style-type: decimal">
-<li><p>With the ranked blast hits, use the <code>awk</code> command to select:</p>
-<ul>
-<li>the best hit for each protein of the query organism (query BH);</li>
-<li>the best hit for each protein of the reference organism (subject BH);</li>
-<li>the bidirectional best hit (BBH)</li>
-</ul></li>
-</ol>
+<p>With the ranked blast hits, use the <code>awk</code> command to select:</p>
+<pre><code>- the best hit for each protein of the query organism (query BH);
+- the best hit for each protein of the reference organism (subject BH);
+- the bidirectional best hit (BBH)</code></pre>
 <p>Save each result in a separate file, and count the number of hits in each file.</p>
 <div id="solution-6" class="section level4">
 <h4>Solution</h4>
@@ -957,15 +973,15 @@ CAB12735        AAC76480        22.707  229     ...   242     1.00e-13        65
 <li><p>Générez un fichier qui indique le nombre d’homologues prédits par protéine de l’organisme d’intérêt. Ce fichier contiendra une ligne par protéine, et deux colonnes, indiquant respectivement le nombre de hits et l’ID de la protéine (<code>uniq -c</code>). Triez les résultats par nombre décroissant de hits (les protéines ayant le plus grand nombre de hits s’affichent en premier lieu). Afficher les 10 premières lignes du fichier.</p></li>
 </ol>
 <p><strong><em>Question d’interprétation</em></strong> : Utilisez Uniprot pour savoir quelle est la fonction biologique des protéines présentant un très grand nombre de hits. Cette fonction permet-elle de comprendre ce nombre excessif de hits ?</p>
-<ol start="5" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Calculez le nombre de protéines de l’organisme d’intérêt sans homologue prédit.</li>
 </ol>
-<p><strong><em>Question d’interprétation</em></strong> : Comment interprétéz-vous ces protéines sans hit ?</p>
-<ol start="6" style="list-style-type: decimal">
+<p><strong><em>Question d’interprétation</em></strong> : Comment interprétez-vous ces protéines sans hit ?</p>
+<ol start="5" style="list-style-type: decimal">
 <li>Calculer la distribution du nombre d’homologues par protéine (combien de protéines ont 0, 1, 2, 3, … homologues).</li>
 </ol>
 <p><strong><em>Question d’interprétation</em></strong> : quel est le nombre moyen de hits ? Combien de protéines ont un seul hit ? Comment interpréteriez-vous ces deux nombres en termes évolutifs ?</p>
-<ol start="7" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li>Identifiez dans les deux comparaisons (votre organisme vs <em>E.coli</em> et <em>E.coli</em> vs votre organisme) toutes les homologies concernant des aspartokinase. Sur base de la règle du bidirectional best hit, tentez d’établir les relations d’orthologie et de paralogie entre chaque paire de protéines, et représentez les résultats dans un tableau avec les gènes de votre organisme sur les lignes, les gènes de E.coli sur les colonnes, et en indiquant “P”, “O”, ou “I” pour paralogie, orthologie ou identité, respectivement.</li>
 </ol>
 <p><strong><em>Question d’interprétation</em></strong> : comment interprétez-vous ces résultats en terme de voies métaboliques ? N’hésitez pas à constuler des ressources complémentaires (KEGG, MetaCyc, …).</p>
