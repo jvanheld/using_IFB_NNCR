@@ -704,6 +704,15 @@ cut -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv | sort |
 
 Here is a link to the **[ result for B.subtilis against E.coli](https://www.uniprot.org/uniprot/?query=CAB13179+OR+CAB15611+OR+CAB15144+OR+CAB12556+OR+CAB12571+OR+CAB12414+OR+CAB12368+OR+CAB15335+OR+CAB15984+OR+CAB15318+OR+CAB14327+OR+CAB12578+OR+CAB11921+OR+CAB15543+OR+CAB15020)**
 
+Read the annotations for some of these proteins with a very high number of hits, and try to identify their common characteristics. For example:  
+
+- Are they involved in particular pathways? 
+- Are they exerting particular molecular activities/functions? 
+- Are they located in particular cell compartments? 
+- Do they belong to particular protein families?
+
+Based on this exploration of the annotations, do you understand why these proteins have so many hits?
+
 ### Sorting hits by significance
 
 We will now try to sort the hits by increasing E-value, in order to display the most significant hits n first place. For this, the simplest solution seems to use `sort` and specify a numeric sorting  (option `-n`) on the numeric value of the $11^{th}$ column (option `-k 11`), which contains the E-value. More precisely, we will specify `-k 11,11` to sort on this column only, because the option `-k 11` would use the $11^{th}$  and all the subsequent columns as sorting keys. Let us look at the result. 
