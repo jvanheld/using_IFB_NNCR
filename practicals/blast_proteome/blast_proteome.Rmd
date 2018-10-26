@@ -693,10 +693,10 @@ We can now use the command `sort` (a second time in the same chain of commands) 
 cut -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv | sort | uniq -c |sort -nr -k 1 | less
 ```
 
-Finally, we select the 15 first rows with the command `head`. 
+Finally, we select the 10 first rows with the command `head`. 
 
 ```{bash eval=FALSE}
-cut -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv | sort | uniq -c |sort -nr -k 1 | head -n 15
+cut -f 1 Bacillus_subtilis__vs__Escherichia_coli_blastp_eval0.00001.tsv | sort | uniq -c |sort -nr -k 1 | head -n 10
 ```
 
 #### Interpretation of the results
